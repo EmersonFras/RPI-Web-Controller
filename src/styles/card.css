@@ -1,0 +1,22 @@
+.card {
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 15px;
+    margin: 30px;
+    width: 90%;
+}
+
+.title {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.body {
+    padding: 20px 10px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}

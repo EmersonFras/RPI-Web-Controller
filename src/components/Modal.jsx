@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import '../styles/modal.css'
 
 function Modal(props) {
-    const {open, cancelFn, primaryFn, secondaryFn, closeIcon, titleContent, content} = props;
+    const {open, cancelFn, primaryFn, secondaryFn, closeIcon, titleContent, content} = props
 
     // capture ESC key to close the modal 
     useEffect(() => {
@@ -41,7 +41,7 @@ function Modal(props) {
                         </button>
                     )}
                     {primaryFn && (
-                        <button onClick={primaryFn}>Continue</button>
+                        <button onClick={primaryFn}>Submit</button>
                     )}
                 </div>
             </div>

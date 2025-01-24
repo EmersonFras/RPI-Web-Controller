@@ -1,6 +1,7 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import Modal from '../components/Modal'
+import Card from '../components/Card'
+import '../styles/weather.css'
 
 function Weather() {
     const [onOffTime, setOnOffTime] = useState({startTime: "00:00", endTime: "23:59"})
@@ -17,10 +18,16 @@ function Weather() {
   }
 
     return (
-        <div className="weather">  
-            <h1>Weather</h1>
-            <p>Current time set to display: {onOffTime.startTime} to {onOffTime.endTime}</p>
-            <button onClick={changeTime}>Change Time</button>
+        <div className="weather">
+            <Card
+                titleContent={<h1>Weather</h1>}
+                content={
+                    <p>Current time set to display: {onOffTime.startTime} to {onOffTime.endTime}</p>
+                }
+                footerContent={
+                    <button onClick={changeTime}>Change Time</button>
+                }
+            />
             <Modal 
                 open={modalOpen}
                 titleContent={<h1> Close </h1>}
