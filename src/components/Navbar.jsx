@@ -7,6 +7,7 @@ function Navbar() {
             <Link to="/">Home</Link>
             <Link to="/weatherApp">Weather App</Link>
             <Link to="/albumDisplay">Album Display</Link>
+            <a href="http://localhost:3000/login">Login</a>
         </div>
     )
 }
