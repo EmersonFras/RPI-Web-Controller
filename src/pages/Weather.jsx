@@ -62,7 +62,7 @@ function Weather() {
                     </p>
                 }
                 footerContent={
-                    <button onClick={() => setTimeModalOpen(true)}>Change Time</button>
+                    <button className="chnge-btn" onClick={() => setTimeModalOpen(true)}>Change Time</button>
                 }
             />
 
@@ -70,7 +70,7 @@ function Weather() {
                 titleContent={<h1>Text Display</h1>}
                 content={<p>Displaying: {displayData.text}</p>}
                 footerContent={
-                    <button onClick={() => setTextModalOpen(true)}>Change Text</button>
+                    <button className="chnge-btn" onClick={() => setTextModalOpen(true)}>Change Text</button>
                 }
             />
 
@@ -87,21 +87,20 @@ function Weather() {
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
                     <>
-                        <h2>Select Start and Stop Time</h2>
-                        <div>
+                        <div className='time-container'>
                             <label>
                                 Start Time:
                                 <input
+                                    className='input-time'
                                     type="time"
                                     ref={startTimeRef}
                                     defaultValue={displayData.start_time || "00:00"}
                                 />
                             </label>
-                        </div>
-                        <div>
                             <label>
                                 Stop Time:
                                 <input
+                                    className='input-time'
                                     type="time"
                                     ref={stopTimeRef}
                                     defaultValue={displayData.stop_time || "23:59"}

@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Weather from './pages/Weather'
 import Album from './pages/Album'
@@ -7,9 +8,7 @@ function App() {
 
   return (
     <>
-      <Link to="/">Home</Link>
-      <Link to="/weatherApp">Weather App</Link>
-      <Link to="/albumDisplay">Album Display</Link>
+      <Navbar />
 
       <Routes>
         <Route path='/' element={<Home />} />

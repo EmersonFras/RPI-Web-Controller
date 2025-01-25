@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+
+    &:hover {
+        background-color: gray;
+    }
+}
