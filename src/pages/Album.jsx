@@ -16,7 +16,7 @@ function Album() {
     }
 
     return (
-        <div className='album'>
+        <div className='page album'>
             <h1>Album Display</h1>
             <Card 
                 titleContent={<h2>Album Search</h2>}

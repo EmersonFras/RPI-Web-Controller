@@ -68,7 +68,7 @@ function Weather() {
     }
 
     return (
-        <div className="weather">
+        <div className="page weather">
             <h1>Weather Display</h1>
             <Card
                 titleContent={<h2>On/Off Time</h2>}
