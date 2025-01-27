@@ -11,7 +11,7 @@ function Album() {
         axios.get(`http://localhost:3000/api/album?q=${input}`, {
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data.name)
+            console.log(res)
         })
     }
 
