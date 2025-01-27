@@ -18,13 +18,13 @@
     cursor: pointer;
 }
 
-.time-container {
+.weather-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.input-time {
+.input-time, .input-text {
     width: 200px;
     height: 40px;
     border: 1px solid #ccc;
@@ -34,7 +34,7 @@
     color: #333;
 }
 
-.time-container label {
+.weather-container label {
     display: flex;
     align-items: center;
     font-size: 1.3rem;

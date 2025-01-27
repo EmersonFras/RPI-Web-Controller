@@ -20,6 +20,7 @@ function Weather() {
 
     const startTimeRef = useRef()
     const stopTimeRef = useRef()
+    const textRef = useRef()
 
     useEffect(() => {
         //Make a request to the server to get the current time set to display
@@ -35,8 +36,9 @@ function Weather() {
             const res = await axios.post('http://localhost:3000/api/display', {
                 start_time: start,
                 stop_time: stop,
+                ...displayData
             })
-            if (res.data.success) setDisplayData({start_time: start, stop_time: stop})
+            if (res.data.success) setDisplayData((prevData) => ({start_time: start, stop_time: stop, ...prevData}))
             else console.error('Error in post request to update time.')
         } catch (error) {
             console.error('Error updating time:', error)
@@ -49,6 +51,19 @@ function Weather() {
         const period = hours >= 12 ? 'PM' : 'AM';
         const adjustedHours = hours % 12 || 12; // Convert 0 to 12 for 12 AM
         return `${adjustedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+
+    async function updateText(newText) {
+        try {
+            const res = await axios.post('http://localhost:3000/api/display', {
+                text: newText,
+                ...displayData
+            })
+            if (res.data.success) setDisplayData((prevData) => ({text: newText , ...prevData}))
+            else console.error('Error in post request to update text.')
+        } catch (error) {
+            console.error('Error updating text:', error)
+        }
     }
 
     return (
@@ -86,42 +101,51 @@ function Weather() {
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
-                    <>
-                        <div className='time-container'>
-                            <label>
-                                Start Time:
-                                <input
-                                    className='input-time'
-                                    type="time"
-                                    ref={startTimeRef}
-                                    defaultValue={displayData.start_time || "00:00"}
-                                />
-                            </label>
-                            <label>
-                                Stop Time:
-                                <input
-                                    className='input-time'
-                                    type="time"
-                                    ref={stopTimeRef}
-                                    defaultValue={displayData.stop_time || "23:59"}
-                                />
-                            </label>
-                        </div>
-                    </>
+                    <div className='weather-container'>
+                        <label>
+                            Start Time:
+                            <input
+                                className='input-time'
+                                type="time"
+                                ref={startTimeRef}
+                                defaultValue={displayData.start_time || "00:00"}
+                            />
+                        </label>
+                        <label>
+                            Stop Time:
+                            <input
+                                className='input-time'
+                                type="time"
+                                ref={stopTimeRef}
+                                defaultValue={displayData.stop_time || "23:59"}
+                            />
+                        </label>
+                    </div>
                }
            />
             <Modal 
                 open={textModalOpen}
                 titleContent={<h1> Change Text </h1>}
                 cancelFn={() => setTextModalOpen(false)}
-                primaryFn={() => setTextModalOpen(false)}
+                primaryFn={() => {
+                    const text = textRef.current.value
+                    updateText(text)
+                    setTimeModalOpen(false) // Close the modal after submission
+                }}
                 secondaryFn={() => setTextModalOpen(false)}
                 content={
-                   <>
-                     <h2>This is a text modal</h2>
-                     <p>You can close it by pressing Escape key, pressing close, or clicking outside the modal.</p>
-                  </>
-
+                    <div className='weather-container'>
+                        <label>
+                            Text:
+                            <input 
+                                className='text-input'
+                                type="text"
+                                ref={textRef}
+                                placeholder='Text to display here...'
+                                defaultValue={displayData.text || ""}
+                            />
+                        </label>
+                    </div>
                }
            />
         </div>
