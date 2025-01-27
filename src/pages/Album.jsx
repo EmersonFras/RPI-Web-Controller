@@ -1,18 +1,20 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import axios from 'axios'
+import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
 import '../styles/album.css'
 
 function Album() {
+    const [albumModalOpen, setAlbumModalOpen] = useState(true)
+    const [albumData, setAlbumData] = useState([])
+
     const titleRef = useRef()
 
     function albumSearch(input) {
         axios.get(`http://localhost:3000/api/album?q=${input}`, {
             withCredentials: true,
-        }).then((res) => {
-            console.log(res)
-        })
+        }).then((res) => {setAlbumData(res.data.albums.items)})
     }
 
     return (
@@ -27,9 +29,29 @@ function Album() {
                     </div>
                 }
                 footerContent={
-                    <CardBtn open={() => albumSearch(titleRef.current.value)} content="Search Albums"/>
+                    <CardBtn 
+                        open={() => {
+                            albumSearch(titleRef.current.value)
+                            setAlbumModalOpen(true)
+                        }} 
+                        content="Search Albums"/>
                 }
             />
+
+            <Modal 
+                open={albumModalOpen}
+                titleContent={<h2> Choose Album </h2>}
+                cancelFn={() => setAlbumModalOpen(false)}
+                primaryFn={() => {
+                    setAlbumModalOpen(false) // Close the modal after submission
+                }}
+                secondaryFn={() => setAlbumModalOpen(false)}
+                content={
+                    <div className='album-container'>
+                        {albumData[0].name}
+                    </div>
+               }
+           />
         </div>
     )
 }
