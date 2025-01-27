@@ -6,7 +6,7 @@ import CardBtn from '../components/CardBtn'
 import '../styles/album.css'
 
 function Album() {
-    const [albumModalOpen, setAlbumModalOpen] = useState(true)
+    const [albumModalOpen, setAlbumModalOpen] = useState(false)
     const [albumData, setAlbumData] = useState([])
 
     const titleRef = useRef()
@@ -48,7 +48,7 @@ function Album() {
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
                     <div className='album-container'>
-                        {albumData[0]}
+                        {albumData[0].name}
                     </div>
                }
            />
