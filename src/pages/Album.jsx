@@ -48,7 +48,7 @@ function Album() {
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
                     <div className='album-container'>
-                        {albumData[0].name}
+                        {albumData.length != 0 ? albumData[0].name : 'No albums found'}
                     </div>
                }
            />
