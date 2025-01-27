@@ -71,7 +71,7 @@ function Weather() {
         <div className="weather">
             <h1>Weather Display</h1>
             <Card
-                titleContent={<h1>On/Off Time</h1>}
+                titleContent={<h2>On/Off Time</h2>}
                 content={
                     <p>
                         Current time set to display: {displayData.start_time ? convertTo12HourFormat(displayData.start_time) : 'Loading...'} to {displayData.stop_time ? convertTo12HourFormat(displayData.stop_time) : 'Loading...'}
@@ -84,7 +84,7 @@ function Weather() {
 
 
             <Card 
-                titleContent={<h1>Text Display</h1>}
+                titleContent={<h2>Text Display</h2>}
                 content={<p>Displaying: {displayData.text}</p>}
                 footerContent={
                     <CardBtn open={setTextModalOpen} content="Change Text"/>
@@ -93,7 +93,7 @@ function Weather() {
 
             <Modal 
                 open={timeModalOpen}
-                titleContent={<h1> Change Time </h1>}
+                titleContent={<h2> Change Time </h2>}
                 cancelFn={() => setTimeModalOpen(false)}
                 primaryFn={() => {
                     const startTime = startTimeRef.current.value;
@@ -127,7 +127,7 @@ function Weather() {
            />
             <Modal 
                 open={textModalOpen}
-                titleContent={<h1> Change Text </h1>}
+                titleContent={<h2> Change Text </h2>}
                 cancelFn={() => setTextModalOpen(false)}
                 primaryFn={() => {
                     const text = textRef.current.value
