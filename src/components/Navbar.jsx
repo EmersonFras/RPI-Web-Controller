@@ -10,7 +10,10 @@ function Navbar() {
         axios('http://localhost:3000/auth/logout', {
             method: 'POST',
             withCredentials: true
-        }).then(() => checkAuthentication())
+        }).then((res) => {
+            console.log(res)
+            checkAuthentication()
+        })
     }
 
     return (
