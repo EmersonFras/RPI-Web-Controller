@@ -48,7 +48,7 @@ function Album() {
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
                     <div className='album-container'>
-                        {albumData != null && albumData[0].name}
+                        {albumData[0]}
                     </div>
                }
            />
