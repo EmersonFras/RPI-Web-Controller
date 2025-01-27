@@ -7,7 +7,8 @@ function Navbar() {
     const { isAuthenticated, checkAuthentication } = useAuth()
 
     function logout() {
-        axios.post('http://localhost:3000/auth/logout', {
+        axios('http://localhost:3000/auth/logout', {
+            method: 'POST',
             withCredentials: true
         }).then(() => checkAuthentication())
     }
