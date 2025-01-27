@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
+import CardBtn from '../components/CardBtn'
 import '../styles/weather.css'
 
 function Weather() {
@@ -77,15 +78,16 @@ function Weather() {
                     </p>
                 }
                 footerContent={
-                    <button className="chnge-btn" onClick={() => setTimeModalOpen(true)}>Change Time</button>
+                    <CardBtn open={setTimeModalOpen} content="Change Time"/>
                 }
             />
+
 
             <Card 
                 titleContent={<h1>Text Display</h1>}
                 content={<p>Displaying: {displayData.text}</p>}
                 footerContent={
-                    <button className="chnge-btn" onClick={() => setTextModalOpen(true)}>Change Text</button>
+                    <CardBtn open={setTextModalOpen} content="Change Text"/>
                 }
             />
 

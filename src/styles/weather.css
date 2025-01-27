@@ -7,17 +7,6 @@
     padding: 25px 0;
 }
 
-.chnge-btn {
-    width: 150px;
-    height: 45px;
-    border: none;
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
 .weather-container {
     display: flex;
     flex-direction: column;

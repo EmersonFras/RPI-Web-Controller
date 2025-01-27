@@ -1,26 +1,32 @@
-import { useAuth } from '../context/AuthContext'
+import { useRef } from 'react'
 import axios from 'axios'
+import Card from '../components/Card'
+import CardBtn from '../components/CardBtn'
 
 function Album() {
-    const { checkAuthentication } = useAuth()
+    const titleRef = useRef()
 
-    function handleClick() {
-        checkAuthentication()
+    function albumSearch(input) {
+        axios.get(`http://localhost:3000/api/album?q=${input}`, {
+            withCredentials: true,
+        }).then((res) => {
+            console.log(res.data.name)
+        })
     }
-
-    function logout() {
-        axios('http://localhost:3000/auth/logout', {
-            method: 'POST',
-            withCredentials: true
-        }).then(() => checkAuthentication())
-    }
-
 
     return (
-        <div>
-            <button onClick={handleClick}> API Test</button>
-            <button onClick={logout}> logout</button>
-        </div>
+        <Card 
+            titleContent={<h1>Album Search</h1>}
+            content={
+                <div>
+                    <label>Search for an album: <input ref={titleRef} type="text" id="albumSearch" />
+                    </label>
+                </div>
+            }
+            footerContent={
+                <CardBtn open={() => albumSearch(titleRef.current.value)} content="Search Albums"/>
+            }
+        />
     )
 }
 
