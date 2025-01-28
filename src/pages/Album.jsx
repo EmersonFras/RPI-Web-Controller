@@ -77,7 +77,7 @@ function Album() {
                 titleContent={<h2> Choose Album </h2>}
                 cancelFn={() => setAlbumModalOpen(false)}
                 primaryFn={() => {
-                    if (hasAlbum) displayAlbum(albumData[currentAlbum].images[0].url)
+                    if (hasAlbums) displayAlbum(albumData[currentAlbum].images[0].url)
                     setAlbumModalOpen(false)
                 }}
                 secondaryFn={() => setAlbumModalOpen(false)}
