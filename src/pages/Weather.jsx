@@ -25,7 +25,7 @@ function Weather() {
 
     useEffect(() => {
         //Make a request to the server to get the current time set to display
-        axios.get('http://localhost:3000/api/display')
+        axios.get('http://raspberrypi:3000/api/display')
             .then((res) => {
                 setDisplayData({start_time: res.data.start_time, stop_time: res.data.stop_time})
             })
@@ -34,7 +34,7 @@ function Weather() {
 
     async function updateTime(start, stop) {
         try {
-            const res = await axios.post('http://localhost:3000/api/display', {
+            const res = await axios.post('http://raspberrypi:3000/api/display', {
                 start_time: start,
                 stop_time: stop,
                 ...displayData
@@ -56,7 +56,7 @@ function Weather() {
 
     async function updateText(newText) {
         try {
-            const res = await axios.post('http://localhost:3000/api/display', {
+            const res = await axios.post('http://raspberrypi:3000/api/display', {
                 text: newText,
                 ...displayData
             })

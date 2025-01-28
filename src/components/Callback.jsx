@@ -12,7 +12,7 @@ export default function Callback() {
         const code = new URLSearchParams(window.location.search).get('code')
 
         axios.post(
-            'http://localhost:3000/callback',
+            'http://raspberrypi:3000/callback',
             { code }, // Send the authorization code to the backend
             { withCredentials: true } // Ensures cookies are included
         )

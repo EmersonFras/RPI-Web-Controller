@@ -17,7 +17,7 @@ function Album() {
 
     function albumSearch(input) {
         if (input != lastSearch) {
-            axios.get(`http://localhost:3000/api/album?q=${input}`, {
+            axios.get(`http://raspberrypi:3000/api/album?q=${input}`, {
                 withCredentials: true,
             })
             .then((res) => {setAlbumData(res.data.albums.items)})
@@ -48,7 +48,7 @@ function Album() {
     }
 
     function displayAlbum(albumImg) {
-        axios.post('http://localhost:3000/api/album/display', 
+        axios.post('http://raspberrypi:3000/api/album/display', 
             { img: albumImg },
             { withCredentials: true }
         )
