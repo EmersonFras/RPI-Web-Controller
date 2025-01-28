@@ -55,7 +55,7 @@ function Album() {
                     <div className="album-container">
                         {hasAlbums ? (
                             <>
-                                <button onClick={() => setCurrentAlbum((prev) => prev === 0 ? albumData.length - 1 : prev - 1)} >&gt;</button>
+                                <button className='arrow-btn' onClick={() => setCurrentAlbum((prev) => prev === 0 ? albumData.length - 1 : prev - 1)} >&lt;</button>
                                 <div key={albumData[currentAlbum].id} className="album-item">
                                     {albumData[currentAlbum]?.images?.[0]?.url ? (
                                         <img
@@ -67,7 +67,7 @@ function Album() {
                                     )}
                                     <p>{albumData[currentAlbum].name}</p>
                                 </div>
-                                <button onClick={() => setCurrentAlbum((prev) => prev === albumData.length - 1 ? 0 : prev + 1)}>&lt;</button>
+                                <button className='arrow-btn' onClick={() => setCurrentAlbum((prev) => prev === albumData.length - 1 ? 0 : prev + 1)}>&gt;</button>
                             </>
                         ) : (
                             <p>No albums found. Try searching for something else.</p>
