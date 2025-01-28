@@ -8,6 +8,7 @@ import '../styles/album.css'
 function Album() {
     const [albumModalOpen, setAlbumModalOpen] = useState(false)
     const [albumData, setAlbumData] = useState([])
+    const [currentAlbum, setCurrentAlbum] = useState(0)
 
     const titleRef = useRef()
 
@@ -16,6 +17,8 @@ function Album() {
             withCredentials: true,
         }).then((res) => {setAlbumData(res.data.albums.items)})
     }
+
+    console.log(albumData)
 
     return (
         <div className='page album'>
@@ -48,7 +51,12 @@ function Album() {
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
                     <div className='album-container'>
-                        {albumData.length != 0 ? albumData[0].name : 'No albums found'}
+                        <div key={album[currentAlbum].id} className='album-item'>
+                            <img src={album[currentAlbum].image.url} alt={album.name} />
+                            <p>{album[currentAlbum].name}</p>
+                        </div>
+                        <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
+                        <button onClick={setCurrentAlbum((prev) => (prev == 0 ? 9 : prev--))}>Previous</button>
                     </div>
                }
            />
