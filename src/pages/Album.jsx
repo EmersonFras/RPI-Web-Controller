@@ -3,6 +3,7 @@ import axios from 'axios'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
+import placeholder from '../assets/images/placeholder.png'
 import '../styles/album.css'
 
 function Album() {
@@ -63,14 +64,14 @@ function Album() {
                                             alt={albumData[currentAlbum].name}
                                         />
                                     ) : (
-                                        <p>No image available</p>
+                                        <img src={placeholder} alt="Placeholder album image"/>
                                     )}
                                     <p>{albumData[currentAlbum].name}</p>
                                 </div>
                                 <button className='arrow-btn' onClick={() => setCurrentAlbum((prev) => prev === albumData.length - 1 ? 0 : prev + 1)}>&gt;</button>
                             </>
                         ) : (
-                            <p>No albums found. Try searching for something else.</p>
+                            <img src={placeholder} alt="Placeholder album image"/>
                         )}
                     </div>
                }
