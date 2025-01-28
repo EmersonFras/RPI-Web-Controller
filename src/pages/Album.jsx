@@ -54,7 +54,7 @@ function Album() {
                         {albumData.length > 0 ? 
                         <>
                             <div key={albumData[currentAlbum].id} className='album-item'> 
-                                <img src={albumData[currentAlbum].images.url} alt={albumData[currentAlbum].name} />
+                                <img src={albumData[currentAlbum].images[0].url} alt={albumData[currentAlbum].name} />
                                 <p>{albumData[currentAlbum].name}</p>
                             </div>
                             <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
