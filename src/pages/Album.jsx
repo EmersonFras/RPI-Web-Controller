@@ -51,9 +51,9 @@ function Album() {
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
                     <div className='album-container'>
-                        <div key={album[currentAlbum].id} className='album-item'>
-                            <img src={album[currentAlbum].image.url} alt={album.name} />
-                            <p>{album[currentAlbum].name}</p>
+                        <div key={albumData[currentAlbum].id} className='album-item'>
+                            <img src={albumData[currentAlbum].image.url} alt={albumData[currentAlbum].name} />
+                            <p>{albumData[currentAlbum].name}</p>
                         </div>
                         <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
                         <button onClick={setCurrentAlbum((prev) => (prev == 0 ? 9 : prev--))}>Previous</button>
