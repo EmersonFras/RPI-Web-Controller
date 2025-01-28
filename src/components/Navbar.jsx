@@ -7,7 +7,7 @@ function Navbar() {
     const { isAuthenticated, checkAuthentication } = useAuth()
 
     function logout() {
-        axios('http://raspberrypi:3000/auth/logout', {
+        axios('https://raspberrypi:3000/auth/logout', {
             method: 'POST',
             withCredentials: true
         }).then(() => {checkAuthentication()})
@@ -18,7 +18,7 @@ function Navbar() {
             <Link to="/">Home</Link>
             <Link to="/weatherApp">Weather App</Link>
             <Link to="/albumDisplay">Album Display</Link>
-            {isAuthenticated ? <button onClick={logout}>Log Out</button> : <a href="http://raspberrypi:3000/auth">Login</a>}
+            {isAuthenticated ? <button onClick={logout}>Log Out</button> : <a href="https://raspberrypi:3000/auth">Login</a>}
         </div>
     )
 }
