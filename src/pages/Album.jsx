@@ -22,7 +22,8 @@ function Album() {
             })
             .then((res) => {setAlbumData(res.data.albums.items)})
             .catch((err) => console.error(err))     
-
+            
+            setCurrentAlbum(0)
             lastSearch = input
         }
         setAlbumModalOpen(true)
