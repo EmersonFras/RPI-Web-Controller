@@ -10,16 +10,22 @@ function Album() {
     const [albumModalOpen, setAlbumModalOpen] = useState(false)
     const [albumData, setAlbumData] = useState([])
     const [currentAlbum, setCurrentAlbum] = useState(0)
-    const [isLoading, setIsLoading] = useState(false)
 
     const titleRef = useRef()
 
+    let lastSearch = ''
+
     function albumSearch(input) {
-        axios.get(`http://localhost:3000/api/album?q=${input}`, {
-            withCredentials: true,
-        })
-        .then((res) => {setAlbumData(res.data.albums.items)})
-        .catch((err) => console.error(err))     
+        if (input != lastSearch) {
+            axios.get(`http://localhost:3000/api/album?q=${input}`, {
+                withCredentials: true,
+            })
+            .then((res) => {setAlbumData(res.data.albums.items)})
+            .catch((err) => console.error(err))     
+
+            lastSearch = input
+        }
+        setAlbumModalOpen(true)
     }
 
     const hasAlbums = albumData.length > 0
@@ -29,16 +35,14 @@ function Album() {
 
         const nextAlbum = albumData[nextIndex];
         if (nextAlbum?.images?.[0]?.url) {
-            setIsLoading(true); // Start loading state
-            const img = new Image();
-            img.src = nextAlbum.images[0].url;
+            const img = new Image()
+            img.src = nextAlbum.images[0].url
 
             img.onload = () => {
-                setIsLoading(false); // End loading state
-                setCurrentAlbum(nextIndex); // Update to the next album
-            };
+                setCurrentAlbum(nextIndex) // Update to the next album
+            }
         } else {
-            setCurrentAlbum(nextIndex); // If no image, update immediately
+            setCurrentAlbum(nextIndex) // If no image, update immediately
         }
     }
 
@@ -55,10 +59,7 @@ function Album() {
                 }
                 footerContent={
                     <CardBtn 
-                        open={() => {
-                            albumSearch(titleRef.current.value)
-                            setAlbumModalOpen(true)
-                        }} 
+                        open={() => {albumSearch(titleRef.current.value)}} 
                         content="Search Albums"/>
                 }
             />
