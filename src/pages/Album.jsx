@@ -15,10 +15,13 @@ function Album() {
     function albumSearch(input) {
         axios.get(`http://localhost:3000/api/album?q=${input}`, {
             withCredentials: true,
-        }).then((res) => {setAlbumData(res.data.albums.items)})
+        })
+        .then((res) => {setAlbumData(res.data.albums.items)})
+        .catch((err) => console.error(err))     
     }
 
     console.log(albumData)
+    const hasAlbums = albumData.length > 0
 
     return (
         <div className='page album'>
@@ -50,17 +53,34 @@ function Album() {
                 }}
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
-                    <div className='album-container'>
-                        {albumData.length > 0 ? 
-                        <>
-                            <div key={albumData[currentAlbum].id} className='album-item'> 
-                                <img src={albumData[currentAlbum].images[0].url} alt={albumData[currentAlbum].name} />
-                                <p>{albumData[currentAlbum].name}</p>
-                            </div>
-                            <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
-                            <button onClick={setCurrentAlbum((prev) => (prev == 0 ? 9 : prev--))}>Previous</button>
-                        </>
-                        : undefined}
+                    <div className="album-container">
+                        {hasAlbums ? (
+                            <>
+                                <div key={albumData[currentAlbum].id} className="album-item">
+                                    {albumData[currentAlbum]?.images?.[0]?.url ? (
+                                        <img
+                                            src={albumData[currentAlbum].images[0].url}
+                                            alt={albumData[currentAlbum].name}
+                                        />
+                                    ) : (
+                                        <p>No image available</p>
+                                    )}
+                                    <p>{albumData[currentAlbum].name}</p>
+                                </div>
+                                <button
+                                    onClick={() => setCurrentAlbum((prev) => prev === albumData.length - 1 ? 0 : prev + 1)}
+                                >
+                                    Next
+                                </button>
+                                <button
+                                    onClick={() => setCurrentAlbum((prev) => prev === 0 ? albumData.length - 1 : prev - 1)}
+                                >
+                                    Previous
+                                </button>
+                            </>
+                        ) : (
+                            <p>No albums found. Try searching for something else.</p>
+                        )}
                     </div>
                }
            />
