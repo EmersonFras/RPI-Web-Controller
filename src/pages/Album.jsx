@@ -18,17 +18,6 @@ function Album() {
         }).then((res) => {setAlbumData(res.data.albums.items)})
     }
 
-    const albumElement = (
-        <div className='album-container'>
-            <div key={albumData[currentAlbum].id} className='album-item'>
-                <img src={albumData[currentAlbum].image.url} alt={albumData[currentAlbum].name} />
-                <p>{albumData[currentAlbum].name}</p>
-            </div>
-            <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
-            <button onClick={setCurrentAlbum((prev) => (prev == 0 ? 9 : prev--))}>Previous</button>
-        </div>
-    )
-
     console.log(albumData)
 
     return (
@@ -65,7 +54,7 @@ function Album() {
                         {albumData.length > 0 ? 
                         <>
                             <div key={albumData[currentAlbum].id} className='album-item'> 
-                                <img src={albumData[currentAlbum].image.url} alt={albumData[currentAlbum].name} />
+                                <img src={albumData[currentAlbum].images.url} alt={albumData[currentAlbum].name} />
                                 <p>{albumData[currentAlbum].name}</p>
                             </div>
                             <button onClick={setCurrentAlbum((prev) => {prev == 9 ? 0 : prev++})}>Next</button>
