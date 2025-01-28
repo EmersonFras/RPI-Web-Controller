@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
@@ -10,10 +10,10 @@ function Album() {
     const [albumModalOpen, setAlbumModalOpen] = useState(false)
     const [albumData, setAlbumData] = useState([])
     const [currentAlbum, setCurrentAlbum] = useState(0)
+    const [lastSearch, setLastSearch]= useState('')
 
     const titleRef = useRef()
 
-    let lastSearch = ''
 
     function albumSearch(input) {
         if (input != lastSearch) {
@@ -24,7 +24,7 @@ function Album() {
             .catch((err) => console.error(err))     
             
             setCurrentAlbum(0)
-            lastSearch = input
+            setLastSearch(input)
         }
         setAlbumModalOpen(true)
     }
@@ -45,6 +45,13 @@ function Album() {
         } else {
             setCurrentAlbum(nextIndex) // If no image, update immediately
         }
+    }
+
+    function displayAlbum(albumImg) {
+        axios.post('http://localhost:3000/api/album/display', 
+            { img: albumImg },
+            { withCredentials: true }
+        )
     }
 
     return (
@@ -70,7 +77,8 @@ function Album() {
                 titleContent={<h2> Choose Album </h2>}
                 cancelFn={() => setAlbumModalOpen(false)}
                 primaryFn={() => {
-                    setAlbumModalOpen(false) // Close the modal after submission
+                    if (hasAlbum) displayAlbum(albumData[currentAlbum].images[0].url)
+                    setAlbumModalOpen(false)
                 }}
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
