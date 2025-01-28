@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     // A function to check the JWT token from the cookie
     const checkAuthentication = async () => {
         try {
-            const response = await axios.get('https://raspberrypi:3000/auth/check', { withCredentials: true })
+            const response = await axios.get('https://rpi-display.duckdns.org:3000/auth/check', { withCredentials: true })
             
             // If the JWT is valid, the backend will send back `isAuthenticated`
             setIsAuthenticated(response.data.isAuthenticated)
