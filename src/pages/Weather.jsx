@@ -39,7 +39,7 @@ function Weather() {
                 start_time: start,
                 stop_time: stop,
             })
-            if (res.data.success) setDisplayData((prevData) => ({start_time: start, stop_time: stop, ...prevData}))
+            if (res.data.success) setDisplayData((prevData) => ({...prevData, start_time: start, stop_time: stop}))
             else console.error('Error in post request to update time.')
         } catch (error) {
             console.error('Error updating time:', error)
@@ -60,7 +60,7 @@ function Weather() {
                 ...displayData,
                 text: newText,
             })
-            if (res.data.success) setDisplayData((prevData) => ({text: newText , ...prevData}))
+            if (res.data.success) setDisplayData((prevData) => ({...prevData, text: newText}))
             else console.error('Error in post request to update text.')
         } catch (error) {
             console.error('Error updating text:', error)
