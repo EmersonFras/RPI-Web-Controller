@@ -35,9 +35,9 @@ function Weather() {
     async function updateTime(start, stop) {
         try {
             const res = await axios.post('https://rpi-display.duckdns.org:3000/api/weather', {
+                ...displayData,
                 start_time: start,
                 stop_time: stop,
-                ...displayData
             })
             if (res.data.success) setDisplayData((prevData) => ({start_time: start, stop_time: stop, ...prevData}))
             else console.error('Error in post request to update time.')
@@ -57,8 +57,8 @@ function Weather() {
     async function updateText(newText) {
         try {
             const res = await axios.post('https://rpi-display.duckdns.org:3000/api/weather', {
+                ...displayData,
                 text: newText,
-                ...displayData
             })
             if (res.data.success) setDisplayData((prevData) => ({text: newText , ...prevData}))
             else console.error('Error in post request to update text.')
@@ -99,7 +99,7 @@ function Weather() {
                     const startTime = startTimeRef.current.value;
                     const stopTime = stopTimeRef.current.value;
                     updateTime(startTime, stopTime);
-                    setTimeModalOpen(false); // Close the modal after submission
+                    setTimeModalOpen(false) // Close the modal after submission
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
