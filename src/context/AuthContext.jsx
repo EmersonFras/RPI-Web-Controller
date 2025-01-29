@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
 const AuthContext = createContext()
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
             
             // If the JWT is valid, the backend will send back `isAuthenticated`
             setIsAuthenticated(response.data.isAuthenticated)
-        } catch (err) {
+        } catch {
             // console.error('Error checking authentication:', err)
             setIsAuthenticated(false)
         }
