@@ -4,7 +4,7 @@ function CardBtn(props) {
     const { onClick, content } = props
 
     return (
-        <button className="card-btn" onClick={onClick}>{content}</button>
+        <button className="card-btn" onClick={() => onClick()}>{content}</button>
     )
 }
 
