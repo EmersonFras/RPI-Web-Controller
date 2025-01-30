@@ -67,7 +67,7 @@ function Album() {
                 }
                 footerContent={
                     <CardBtn 
-                        open={() => {albumSearch(titleRef.current.value)}} 
+                        onClick={() => {albumSearch(titleRef.current.value)}} 
                         content="Search Albums"/>
                 }
             />
