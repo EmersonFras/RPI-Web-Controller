@@ -25,9 +25,9 @@ export default function Callback() {
             }
         })
         .catch((error) => {
-            console.error('Error during callback:', error);
-        });
+            console.error('Error during callback:', error)
+        })
     }, [navigate])
 
-    return <div>Processing...</div>;
+    return <div>Processing...</div>
 }

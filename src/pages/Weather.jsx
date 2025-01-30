@@ -27,7 +27,7 @@ function Weather() {
         //Make a request to the server to get the current time set to display
         axios.get('https://rpi-display.duckdns.org:3000/api/weather')
             .then((res) => {
-                setDisplayData({start_time: res.data.start_time, stop_time: res.data.stop_time})
+                setDisplayData({start_time: res.data.start_time, stop_time: res.data.stop_time, text: res.data.text})
             })
             .catch((error) => console.error('Error fetching display data:', error))
     }, [])
@@ -48,10 +48,10 @@ function Weather() {
 
     // Helper function to convert 24-hour time to 12-hour format
     function convertTo12HourFormat(time) {
-        const [hours, minutes] = time.split(':').map(Number);
-        const period = hours >= 12 ? 'PM' : 'AM';
-        const adjustedHours = hours % 12 || 12; // Convert 0 to 12 for 12 AM
-        return `${adjustedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+        const [hours, minutes] = time.split(':').map(Number)
+        const period = hours >= 12 ? 'PM' : 'AM'
+        const adjustedHours = hours % 12 || 12 // Convert 0 to 12 for 12 AM
+        return `${adjustedHours}:${minutes.toString().padStart(2, '0')} ${period}`
     }
 
     async function updateText(newText) {
@@ -111,9 +111,9 @@ function Weather() {
                 titleContent={<h2> Change Time </h2>}
                 cancelFn={() => setTimeModalOpen(false)}
                 primaryFn={() => {
-                    const startTime = startTimeRef.current.value;
-                    const stopTime = stopTimeRef.current.value;
-                    updateTime(startTime, stopTime);
+                    const startTime = startTimeRef.current.value
+                    const stopTime = stopTimeRef.current.value
+                    updateTime(startTime, stopTime)
                     setTimeModalOpen(false) // Close the modal after submission
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
@@ -147,7 +147,7 @@ function Weather() {
                 primaryFn={() => {
                     const text = textRef.current.value
                     updateText(text)
-                    setTimeModalOpen(false) // Close the modal after submission
+                    setTextModalOpen(false)
                 }}
                 secondaryFn={() => setTextModalOpen(false)}
                 content={

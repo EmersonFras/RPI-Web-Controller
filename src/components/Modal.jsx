@@ -13,11 +13,11 @@ function Modal(props) {
             }
         }
     }
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', handleKeyDown)
+        return () => document.removeEventListener('keydown', handleKeyDown)
     }, [open, cancelFn])
 
-    if (!open) return null;
+    if (!open) return null
 
     return (
 <div className="modalBackground">
