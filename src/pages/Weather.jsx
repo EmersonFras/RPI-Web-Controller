@@ -67,6 +67,12 @@ function Weather() {
         }
     }
 
+    function displayWeather() {
+        axios.post('https://rpi-display.duckdns.org:3000/api/weather/display', 
+            { withCredentials: true }
+        )
+    }
+
     return (
         <div className="page weather">
             <h1>Weather Display</h1>
@@ -78,7 +84,7 @@ function Weather() {
                     </p>
                 }
                 footerContent={
-                    <CardBtn open={setTimeModalOpen} content="Change Time"/>
+                    <CardBtn onClick={() => setTimeModalOpen(true)} content="Change Time"/>
                 }
             />
 
@@ -87,7 +93,16 @@ function Weather() {
                 titleContent={<h2>Text Display</h2>}
                 content={<p>Displaying: {displayData.text}</p>}
                 footerContent={
-                    <CardBtn open={setTextModalOpen} content="Change Text"/>
+                    <CardBtn onClick={() => setTextModalOpen(true)} content="Change Text"/>
+                }
+            />
+
+            <Card 
+                titleContent={<h2>Display app</h2>}
+                content={
+                    <div>
+                        <CardBtn onClick={displayWeather} content="Display" />
+                    </div>
                 }
             />
 

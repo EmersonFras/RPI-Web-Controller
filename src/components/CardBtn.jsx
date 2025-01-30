@@ -1,10 +1,10 @@
 import '../styles/card-button.css'
 
 function CardBtn(props) {
-    const { open, content } = props
+    const { onClick, content } = props
 
     return (
-        <button className="open-btn" onClick={() => open(true)}>{content}</button>
+        <button className="card-btn" onClick={onClick}>{content}</button>
     )
 }
 
