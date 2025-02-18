@@ -85,7 +85,7 @@ function Album() {
                     <div className="album-container">
                         {hasAlbums ? (
                             <>
-                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === 0 ? albumData.length - 1 : currentAlbum - 1)} >&lt</button>
+                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === 0 ? albumData.length - 1 : currentAlbum - 1)} >&lt;</button>
                                 <div key={albumData[currentAlbum].id} className="album-item">
                                     {albumData[currentAlbum]?.images?.[0]?.url ? (
                                         <img
@@ -97,7 +97,7 @@ function Album() {
                                     )}
                                     <p>{albumData[currentAlbum].name}</p>
                                 </div>
-                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === albumData.length - 1 ? 0 : currentAlbum + 1)}>&gt</button>
+                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === albumData.length - 1 ? 0 : currentAlbum + 1)}>&gt;</button>
                             </>
                         ) : (
                             <img src={placeholder} alt="Placeholder album image"/>

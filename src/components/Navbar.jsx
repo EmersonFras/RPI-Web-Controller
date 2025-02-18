@@ -15,10 +15,14 @@ function Navbar() {
 
     return (
         <div className="navbar">
-            <Link to="/">Home</Link>
-            <Link to="/weatherApp">Weather App</Link>
-            <Link to="/albumDisplay">Album Display</Link>
-            {isAuthenticated ? <button onClick={logout}>Log Out</button> : <a href="https://rpi-display.duckdns.org:3000/auth">Login</a>}
+            <div className='section'>
+                <Link to="/">Home</Link>
+                <Link to="/weatherApp">Weather App</Link>
+                <Link to="/albumDisplay">Album Display</Link>
+            </div>
+            <div className='section'>
+                {isAuthenticated ? <button onClick={logout}>Log Out</button> : <a href="https://rpi-display.duckdns.org:3000/auth">Login</a>}
+            </div>
         </div>
     )
 }
