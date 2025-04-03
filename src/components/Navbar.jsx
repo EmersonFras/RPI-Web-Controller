@@ -15,15 +15,15 @@ function Navbar() {
 
     return (
         <div className="navbar">
-            <div className='section nav-left'>
-                <Link to="/">Home</Link>
+            <div className='navbar__section navbar__section--left'>
+                <Link to="/" className="navbar__link">Home</Link>
             </div>
-            <div className='section nav-center'>
-                <Link to="/weatherApp">Weather App</Link>
-                <Link to="/albumDisplay">Album Display</Link>
+            <div className='navbar__section navbar__section--center'>
+                <Link to="/weatherApp" className="navbar__link">Weather App</Link>
+                <Link to="/albumDisplay" className="navbar__link">Album Display</Link>
             </div>
-            <div className='section nav-right'>
-                {isAuthenticated ? <button onClick={logout}>Log Out</button> : <a href="https://rpi-display.duckdns.org:3000/auth">Login</a>}
+            <div className='navbar__section navbar__section--right'>
+                {isAuthenticated ? <button onClick={logout} className="navbar__button navbar__button--logout">Log Out</button> : <a href="https://rpi-display.duckdns.org:3000/auth" className="navbar__button navbar__button--login">Login</a>}
             </div>
         </div>
     )

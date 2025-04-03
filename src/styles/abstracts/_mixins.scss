@@ -1,0 +1,16 @@
+@use '../abstracts/variables' as *;
+@use 'sass:color';
+
+@mixin input-style {
+    background-color: $input-color;
+    color: white; // Ensures readability on dark backgrounds
+    padding: $padding-sm;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+
+    &:focus {
+        box-shadow: 0 0 5px color.scale($input-color, $lightness: 20%);
+    }
+}

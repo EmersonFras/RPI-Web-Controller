@@ -5,22 +5,22 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 10px;
     margin: 30px;
     width: 90%;
+
     background-color: $secondary-color;
     color: $font-color;
-}
 
-.title {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    
-}
+    &__title {
+        padding: $padding-sm;
+        border-bottom: 1px solid $border-color;
+    }
 
-.body {
-    padding: 20px;
-}
+    &__body {
+        padding: $padding-md;
+    }
 
-.footer {
-    display: flex;
-    align-items: center;
-    padding: 10px 0 20px 20px;
+    &__footer {
+        display: flex;
+        align-items: center;
+        padding: $padding-sm 0 $padding-md $padding-md;
+    }
 }

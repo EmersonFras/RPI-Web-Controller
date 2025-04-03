@@ -3,6 +3,7 @@
 
 .navbar {
     display: flex;
+    justify-content: space-between;
 
     position: fixed;
     top: 0;
@@ -10,44 +11,67 @@
     right: 0; 
 
     background-color: rgba($nav-color, 0.7);
-    justify-content: space-between;
-    gap: 10px;
+
     margin: 20px;
+    padding: $padding-sm $padding-md;
     border-radius: 15px;
-}
+    z-index: 100;
 
-.section {
-    display: flex;
-    gap: 25px;
-    padding: 0 20px;
-}
+    &__section {
+        display: flex;
+        gap: 20px;
 
+        &--left {
+            justify-content: flex-start;
+        }
 
+        &--center {
+            justify-content: center;
+            flex-grow: 1;
+        }
 
+        &--right {
+            justify-content: flex-end;
+        }
+    }
 
+    &__link {
+        color: $font-color;
+        background-color: transparent;
+        text-decoration: none;
+        font-size: 1rem;
+        padding: $padding-sm $padding-md;
 
-.section > * {
-    color: $font-color;
-    background-color: transparent;
+        border-radius: 15px;
+    }
 
-    margin: 7px;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-style: none;
-    
-    font-size: 1rem;
-    border-radius: 15px;
+    &__button {
+        padding: $padding-sm $padding-md;
+        border-radius: 13px;
+        border: 2px solid rgba($secondary-nav-color, 0.3);
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+        
+        &--logout {
+            background-color: transparent;
+            color: $font-color;
 
-}
+            &:hover {
+                background-color: color.scale($nav-color, $lightness: -10%);
+            }
+        }
 
-.nav-right > * {
-    border-style:solid;
-    border-width: 2px;
-    margin: 5px;
-    border-radius: 13px;
-    border-color: rgba($secondary-nav-color, 0.3);
+        &--login {
+            background-color: transparent;
+            color: $font-color;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
 
-    &:hover {
-        background-color: color.scale($nav-color, $lightness: -2%);
+            &:hover {
+                background-color: color.scale($nav-color, $lightness: -10%);
+            }
+        }
     }
 }

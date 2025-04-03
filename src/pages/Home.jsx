@@ -8,27 +8,30 @@ function Home() {
 
     // TODO- Should move to context most likely later...
     useEffect(() => {
-        // Make a request to the server to get the current script running
-        axios.get('https://rpi-display.duckdns.org:3000/api/running')
-            .then((res) => {
+        const fetchScriptName = async () => {
+            try {
+                const res = await axios.get('https://rpi-display.duckdns.org:3000/api/running');
+                
                 if (res.data.message) {
-                    // Extract the last part of the path (script name)
-                    const parts = res.data.message.split('/');
-                    let scriptName = parts[parts.length - 1]; // Get the last part
-    
-                    // Format the name (replace underscores with spaces and capitalize each word)
-                    scriptName = scriptName.replace(/_/g, ' ') // Replace underscores
-                                           .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize words
-    
-                    setCurrentScript(scriptName); // Set formatted script name
+                    setCurrentScript(formatScriptName(res.data.message));
                 }
-            })
-            .catch((error) => console.error('Error fetching display data:', error));
+            } catch (error) {
+                console.error('Error fetching current script:', error);
+            }
+        };
+
+        fetchScriptName();
     }, []);
     
+        const formatScriptName = (scriptPath) => {
+        const parts = scriptPath.split('/');
+        let scriptName = parts[parts.length - 1];
+
+        return scriptName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+    };
 
     return (
-        <div className='page home'>
+        <div className="page">
             <h1>Home</h1>
             <Card 
                 titleContent={<h2>Current Display</h2>}

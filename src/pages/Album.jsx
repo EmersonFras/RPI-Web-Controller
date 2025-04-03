@@ -55,26 +55,28 @@ function Album() {
     }
 
     return (
-        <div className='page album'>
-            <h1>Album Display</h1>
+        <div className='page album-display'>
+            <h1 className="album-display__title">Album Display</h1>
             <Card 
-                titleContent={<h2>Album Search</h2>}
+                titleContent={<h2 className="album-display__card-title">Album Search</h2>}
                 content={
-                    <div>
-                        <label>Search for an album: <input ref={titleRef} type="text" id="albumSearch" />
+                    <div className="album-display__search">
+                        <label className="album-display__label">
+                            Search for an album: <input ref={titleRef} type="text" id="albumSearch" className="album-display__input" />
                         </label>
                     </div>
                 }
                 footerContent={
                     <CardBtn 
                         onClick={() => {albumSearch(titleRef.current.value)}} 
-                        content="Search Albums"/>
+                        content="Search Albums"
+                    />
                 }
             />
 
             <Modal 
                 open={albumModalOpen}
-                titleContent={<h2> Choose Album </h2>}
+                titleContent={<h2 className="album-display__modal-title"> Choose Album </h2>}
                 cancelFn={() => setAlbumModalOpen(false)}
                 primaryFn={() => {
                     if (hasAlbums) displayAlbum(albumData[currentAlbum].images[0].url)
@@ -82,25 +84,45 @@ function Album() {
                 }}
                 secondaryFn={() => setAlbumModalOpen(false)}
                 content={
-                    <div className="album-container">
+                    <div className="album-display__modal">
                         {hasAlbums ? (
                             <>
-                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === 0 ? albumData.length - 1 : currentAlbum - 1)} >&lt;</button>
-                                <div key={albumData[currentAlbum].id} className="album-item">
+                                <button 
+                                    className="album-display__arrow-btn album-display__arrow-btn--left"
+                                    onClick={() => handleAlbumChange(currentAlbum === 0 ? albumData.length - 1 : currentAlbum - 1)} 
+                                >
+                                    &lt;
+                                </button>
+
+                                <div key={albumData[currentAlbum].id} className="album-display__item">
                                     {albumData[currentAlbum]?.images?.[0]?.url ? (
                                         <img
                                             src={albumData[currentAlbum].images[0].url}
                                             alt={albumData[currentAlbum].name}
+                                            className="album-display__image"
                                         />
                                     ) : (
-                                        <img src={placeholder} alt="Placeholder album image"/>
+                                        <img 
+                                            src={placeholder} 
+                                            alt="Placeholder album image"
+                                            className="album-display__image album-display__image--placeholder"    
+                                        />
                                     )}
-                                    <p>{albumData[currentAlbum].name}</p>
+                                    <p className="album-display__name">{albumData[currentAlbum].name}</p>
                                 </div>
-                                <button className='arrow-btn' onClick={() => handleAlbumChange(currentAlbum === albumData.length - 1 ? 0 : currentAlbum + 1)}>&gt;</button>
+                                <button 
+                                    className="album-display__arrow-btn album-display__arrow-btn--right"
+                                    onClick={() => handleAlbumChange(currentAlbum === albumData.length - 1 ? 0 : currentAlbum + 1)}
+                                >
+                                        &gt;
+                                </button>
                             </>
                         ) : (
-                            <img src={placeholder} alt="Placeholder album image"/>
+                            <img 
+                                src={placeholder} 
+                                alt="Placeholder album image"
+                                className="album-display__image album-display__image--placeholder"    
+                            />
                         )}
                     </div>
                }

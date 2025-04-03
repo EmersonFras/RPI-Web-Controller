@@ -6,16 +6,16 @@ function Card(props) {
     return (
         <div className="card">
             {titleContent && 
-                <div className="title">
+                <div className="card__title">
                     {titleContent}
                 </div>
             }
 
-            <div className="body">
+            <div className="card__body">
                 {content}
             </div>
 
-            <div className="footer">
+            <div className="card__footer">
                 {footerContent}
             </div>
         </div>

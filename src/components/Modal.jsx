@@ -20,28 +20,28 @@ function Modal(props) {
     if (!open) return null
 
     return (
-<div className="modalBackground">
-            <div className="modalContainer">
-                {titleContent && (<div className="title">
+        <div className="modal">
+            <div className="modal__container">
+                {titleContent && (<div className="modal__title">
                         {titleContent}
-                        <div className="titleCloseBtn">
+                        <div className="modal__close">
                             <button onClick={cancelFn}>{closeIcon ?? 'X'}</button>
                         </div>
                     </div>
                 )}
 
-                <div className="body">
+                <div className="modal__body">
                     {content}
                 </div>
 
-                <div className="footer">
+                <div className="modal__footer">
                     {secondaryFn && (
-                        <button onClick={secondaryFn} id="cancelBtn">
+                        <button onClick={secondaryFn} className="modal__button modal__button--cancel">
                             Cancel
                         </button>
                     )}
                     {primaryFn && (
-                        <button onClick={primaryFn}>Submit</button>
+                        <button onClick={primaryFn} className='modal__button modal__button--submit'>Submit</button>
                     )}
                 </div>
             </div>

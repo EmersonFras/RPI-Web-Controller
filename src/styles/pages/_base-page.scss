@@ -1,0 +1,15 @@
+@use '../abstracts/variables' as *;
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: $primary-color;
+    padding: 100px 0;
+    color: $font-color;
+
+    &--home {
+        text-align: center;
+    }
+}

@@ -1,17 +1,57 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use 'sass:color';
 
-.album-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    min-width: 770px;
-    min-height: 662px;
-}
+.album-display {
+    &__title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
 
-.arrow-btn {
-    border-style: none;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: #e0e0e0;
+    &__label {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    &__input {
+        @include input-style;
+    }
+
+    &__modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        min-width: 770px;
+        min-height: 662px;
+    }
+
+    &__modal-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    &__arrow-btn {
+        border: none;
+        border-radius: 10px;
+        padding: $padding-md;
+        background-color: $secondary-color;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: color.scale($secondary-color, $lightness: 20%)
+        }
+
+        &--left {
+            margin-right: 10px;
+        }
+
+        &--right {
+            margin-left: 10px;
+        }
+    }
 }
