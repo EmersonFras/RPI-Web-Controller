@@ -1,4 +1,4 @@
-import '../styles/card.css'
+
 
 function Card(props) {
     const { titleContent, content, footerContent } = props

@@ -1,8 +1,10 @@
+@use '../abstracts/variables' as *;
+
 .card-btn {
     width: 150px;
     height: 45px;
     border: none;
-    background-color: cornflowerblue;
+    background-color: $action-button;
     color: white;
     border-radius: 8px;
     font-size: 1.2rem;

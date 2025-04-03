@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Card from '../components/Card'
-import '../styles/home.css'
+
 
 function Home() {
     const [currentScript, setCurrentScript] = useState("")

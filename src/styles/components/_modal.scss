@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as *;
+
 .modalBackground {
     width: 100vw;
     height: 100vh;
@@ -15,7 +17,8 @@
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-    background-color: white;
+    background-color: $primary-color;
+    color: $font-color;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
@@ -39,6 +42,7 @@
 
 .titleCloseBtn button {
     font-size: 0.3rem;
+    color: $font-color;
 }
 
 .titleCloseBtn button {
@@ -70,13 +74,13 @@
     height: 45px;
     margin: 10px;
     border: none;
-    background-color: cornflowerblue;
-    color: white;
+    background-color: $action-button;
+    color: $font-color;
     border-radius: 8px;
     font-size: 20px;
     cursor: pointer;
 }
 
 #cancelBtn {
-    background-color: crimson;
+    background-color: $cancel-button;
 }

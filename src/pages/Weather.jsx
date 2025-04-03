@@ -3,7 +3,7 @@ import axios from 'axios'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
-import '../styles/weather.css'
+
 
 function Weather() {
     /**

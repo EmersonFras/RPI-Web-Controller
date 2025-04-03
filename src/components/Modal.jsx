@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import '../styles/modal.css'
+
 
 function Modal(props) {
     const {open, cancelFn, primaryFn, secondaryFn, closeIcon, titleContent, content} = props

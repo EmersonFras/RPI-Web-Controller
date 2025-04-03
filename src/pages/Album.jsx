@@ -4,7 +4,7 @@ import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
 import placeholder from '../assets/images/placeholder.png'
-import '../styles/album.css'
+
 
 function Album() {
     const [albumModalOpen, setAlbumModalOpen] = useState(false)
