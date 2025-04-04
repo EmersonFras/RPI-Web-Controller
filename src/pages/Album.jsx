@@ -62,7 +62,8 @@ function Album() {
                 content={
                     <div className="album-display__search">
                         <label className="album-display__label">
-                            Search for an album: <input ref={titleRef} type="text" id="albumSearch" className="album-display__input" />
+                            <span className="album-display__label-text">Search for an album: </span>
+                            <input ref={titleRef} type="text" id="albumSearch" className="album-display__input" />
                         </label>
                     </div>
                 }

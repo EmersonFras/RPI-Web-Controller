@@ -1,9 +1,9 @@
-$primary-color: #131424;
-$secondary-color: #1f213b;
-$nav-color: rgb(17, 17, 17);
+$primary-color: #131416;
+$secondary-color: #1c1d21;
+$nav-color: #050506;
 $secondary-nav-color: gray;
 
-$action-button: cornflowerblue;
+$action-button: #335fff;
 $cancel-button: crimson;
 $input-color: #2a2d4a;
 
@@ -13,4 +13,6 @@ $font-color: white;
 $border-color: #ccc;
 $padding-sm: 10px;
 $padding-md: 20px;
-$shadow: rgba(0, 0, 0, 0.1) 0px 10px 10px;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$shadow-offset: 0px 10px 10px;
+$shadow: #{$shadow-color} #{$shadow-offset};

@@ -1,24 +1,19 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
-.weather-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+.weather {
+    &__label {
+        display: flex;
+        align-items: center;
+        font-size: 1.3rem;
+        gap: 10px; // this creates space between "Text:" and the input
+    }
 
-.input-time, .input-text {
-    width: 200px;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 1rem;
-    color: #333;
-}
+    &__input {
+        width: 200px;
+        height: 40px;
+        margin: 10px 0;
+        @include input-style;
 
-.weather-container label {
-    display: flex;
-    align-items: center;
-    font-size: 1.3rem;
-    gap: 5px;
-}
+    }
+  }

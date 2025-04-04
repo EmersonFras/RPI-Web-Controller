@@ -118,20 +118,20 @@ function Weather() {
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
-                    <div className='weather-container'>
-                        <label>
-                            Start Time:
+                    <div className="weather__container">
+                        <label className="weather__label">
+                            <span className="weather__label-text">Start Time: </span>
                             <input
-                                className='input-time'
+                                className="weather__input weather__input--time"
                                 type="time"
                                 ref={startTimeRef}
                                 defaultValue={displayData.start_time || "00:00"}
                             />
                         </label>
-                        <label>
-                            Stop Time:
+                        <label className="weather__label">
+                            <span className="weather__label-text">Stop Time: </span>
                             <input
-                                className='input-time'
+                                className="weather__input weather__input--time"
                                 type="time"
                                 ref={stopTimeRef}
                                 defaultValue={displayData.stop_time || "23:59"}
@@ -151,11 +151,11 @@ function Weather() {
                 }}
                 secondaryFn={() => setTextModalOpen(false)}
                 content={
-                    <div className='weather-container'>
-                        <label>
-                            Text:
+                    <div className="weather__container">
+                        <label className="weather__label">
+                            <span className="weather__label-text">Text: </span>
                             <input 
-                                className='text-input'
+                                className="weather__input weather__input--text"
                                 type="text"
                                 ref={textRef}
                                 placeholder='Text to display here...'
