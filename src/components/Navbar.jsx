@@ -1,10 +1,32 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 
 function Navbar() {
     const { isAuthenticated, checkAuthentication } = useAuth()
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    useEffect(() => {
+
+        // Sets class name on navbar based on scroll position
+        const handleScroll = () => {
+            // 50 is the scroll threshold
+            // Value was chosen initially, can be changed later
+            if (window.scrollY > 50) {
+              setIsScrolled(true)
+            } else {
+              setIsScrolled(false)
+            }
+        }
+
+        window.addEventListener("scroll", handleScroll)
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [])
 
     function logout() {
         axios('https://rpi-display.duckdns.org:3000/auth/logout', {
@@ -14,7 +36,7 @@ function Navbar() {
     }
 
     return (
-        <div className="navbar">
+        <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className='navbar__section navbar__section--left'>
                 <Link to="/" className="navbar__link">Home</Link>
             </div>

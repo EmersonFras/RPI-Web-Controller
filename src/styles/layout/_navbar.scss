@@ -18,6 +18,8 @@
     border-radius: 15px;
     z-index: 100;
 
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); 
+
     &__section {
         display: flex;
         gap: 20px;
@@ -74,5 +76,12 @@
                 background-color: color.scale($nav-color, $lightness: -10%);
             }
         }
+    }
+
+    &.scrolled {
+        margin: 0;
+        padding: 5px;
+        border-radius: 0 0 13px 13px;
+        // transform: translateY(5px);
     }
 }
