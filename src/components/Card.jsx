@@ -1,10 +1,10 @@
 
 
 function Card(props) {
-    const { titleContent, content, footerContent } = props
+    const { className, titleContent, content, footerContent } = props
     
     return (
-        <div className="card">
+        <div className={`card ${className ? className : ''}`} >
             {titleContent && 
                 <div className="card__title">
                     {titleContent}

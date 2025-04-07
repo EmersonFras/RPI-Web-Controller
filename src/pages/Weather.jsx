@@ -18,6 +18,7 @@ function Weather() {
     const [displayData, setDisplayData] = useState({})
     const [timeModalOpen, setTimeModalOpen] = useState(false)
     const [textModalOpen, setTextModalOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const startTimeRef = useRef()
     const stopTimeRef = useRef()
@@ -30,6 +31,19 @@ function Weather() {
                 setDisplayData({start_time: res.data.start_time, stop_time: res.data.stop_time, text: res.data.text})
             })
             .catch((error) => console.error('Error fetching display data:', error))
+            .finally(() => {
+                setIsLoading(false)
+            })
+
+        /*
+            Debug code to simulate loading
+            This code will simulate a loading state for 2 seconds before setting the display data
+        */
+        // const delay = setTimeout(() => {
+        //     setIsLoading(false);
+        // }, 2000);
+
+        // return () => clearTimeout(delay);
     }, [])
 
     async function updateTime(start, stop) {
@@ -77,23 +91,25 @@ function Weather() {
         <div className="page weather">
             <h1>Weather Display</h1>
             <Card
-                titleContent={<p>On/Off Time</p>}
+                className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
+                titleContent={<p className="card__content card__content--fade">On/Off Time</p>}
                 content={
-                    <p>
-                        Current time set to display: {displayData.start_time ? convertTo12HourFormat(displayData.start_time) : 'Loading...'} to {displayData.stop_time ? convertTo12HourFormat(displayData.stop_time) : 'Loading...'}
+                    <p className="card__content card__content--fade">
+                        Current time set to display: {displayData.start_time && convertTo12HourFormat(displayData.start_time)} to {displayData.stop_time && convertTo12HourFormat(displayData.stop_time)}
                     </p>
                 }
                 footerContent={
-                    <CardBtn onClick={() => setTimeModalOpen(true)} content="Change Time"/>
+                    <CardBtn className="card__content card__content--fade" onClick={() => setTimeModalOpen(true)} content="Change Time"/>
                 }
             />
 
 
             <Card 
-                titleContent={<p>Text Display</p>}
-                content={<p>Displaying: {displayData.text}</p>}
+                className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
+                titleContent={<p className="card__content card__content--fade">Text Display</p>}
+                content={<p className="card__content card__content--fade">Displaying: {displayData.text}</p>}
                 footerContent={
-                    <CardBtn onClick={() => setTextModalOpen(true)} content="Change Text"/>
+                    <CardBtn className="card__content card__content--fade" onClick={() => setTextModalOpen(true)} content="Change Text"/>
                 }
             />
 
