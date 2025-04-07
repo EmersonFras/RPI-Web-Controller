@@ -14,8 +14,19 @@
     font-size: 1rem;
     cursor: pointer;
 
-    
     &:hover {
         background-color: color.scale($action-button, $lightness: 10%);
+    }
+
+    &--locked {
+        background-color: $locked-button;
+        opacity: 0.6;     
+
+        cursor: not-allowed; 
+        box-shadow: none;  
+
+        &:hover {
+            background-color: $locked-button;
+        }
     }
 }

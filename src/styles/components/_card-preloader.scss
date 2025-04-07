@@ -34,6 +34,11 @@
   .card--loaded .card__footer--fade {
     opacity: 1;
   }
+
+  .card--loaded .card__content--fade.card__btn--locked,
+  .card--loaded .card__footer--fade.card__btn--locked {
+    opacity: 0.6;
+  }
   
   @keyframes loading-animation {
     0% {

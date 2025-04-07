@@ -104,7 +104,11 @@ function Weather() {
                     
                 }
                 footerContent={
-                    <CardBtn className="card__content card__content--fade" onClick={() => setTimeModalOpen(true)} content="Change Time"/>
+                    <CardBtn 
+                        className={`card__content card__content--fade ${displayData.start_time && displayData.stop_time ? "" : "card__btn--locked"}`}
+                        disabled={!(displayData.start_time && displayData.stop_time)}
+                        onClick={() => setTimeModalOpen(true)} 
+                        content="Change Time"/>
                 }
             />
 
@@ -122,15 +126,23 @@ function Weather() {
                         </p>
                 }
                 footerContent={
-                    <CardBtn className="card__content card__content--fade" onClick={() => setTextModalOpen(true)} content="Change Text"/>
+                    <CardBtn 
+                        className={`card__content card__content--fade ${displayData.text ? "" : "card__btn--locked"}`} 
+                        disabled={!displayData.text}
+                        onClick={() => setTextModalOpen(true)} 
+                        content="Change Text"
+                    />
                 }
             />
 
             <Card 
                 content={
-                    <div>
-                        <CardBtn onClick={displayWeather} content="Display" />
-                    </div>
+                    <CardBtn 
+                        disabled={!(displayData.text && displayData.start_time && displayData.stop_time)}
+                        className={(displayData.text && displayData.start_time && displayData.stop_time) ? "" : "card__btn--locked"} 
+                        onClick={displayWeather} 
+                        content="Display" 
+                    />
                 }
             />
 
