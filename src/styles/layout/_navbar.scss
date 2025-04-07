@@ -11,6 +11,7 @@
     right: 0; 
 
     background-color: rgba($nav-color, 0.7);
+    backdrop-filter: blur(3px);
 
     margin: 20px;
     padding: $padding-sm $padding-md;

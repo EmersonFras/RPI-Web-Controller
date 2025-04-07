@@ -2,16 +2,16 @@
 @use 'sass:color';
 
 .card__btn {
-    width: 150px;
-    height: 45px;
+    // width: 100px;
+    // height: 45px;
 
     border: none;
-
+    padding: $padding-sm $padding-md;
     background-color: $action-button;
     color: $font-color;
 
     border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
 
     

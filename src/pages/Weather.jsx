@@ -77,7 +77,7 @@ function Weather() {
         <div className="page weather">
             <h1>Weather Display</h1>
             <Card
-                titleContent={<h2>On/Off Time</h2>}
+                titleContent={<p>On/Off Time</p>}
                 content={
                     <p>
                         Current time set to display: {displayData.start_time ? convertTo12HourFormat(displayData.start_time) : 'Loading...'} to {displayData.stop_time ? convertTo12HourFormat(displayData.stop_time) : 'Loading...'}
@@ -90,7 +90,7 @@ function Weather() {
 
 
             <Card 
-                titleContent={<h2>Text Display</h2>}
+                titleContent={<p>Text Display</p>}
                 content={<p>Displaying: {displayData.text}</p>}
                 footerContent={
                     <CardBtn onClick={() => setTextModalOpen(true)} content="Change Text"/>
@@ -98,7 +98,6 @@ function Weather() {
             />
 
             <Card 
-                titleContent={<h2>Display app</h2>}
                 content={
                     <div>
                         <CardBtn onClick={displayWeather} content="Display" />

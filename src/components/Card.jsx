@@ -15,9 +15,11 @@ function Card(props) {
                 {content}
             </div>
 
-            <div className="card__footer">
-                {footerContent}
-            </div>
+            {footerContent && 
+                <div className="card__footer">
+                    {footerContent}
+                </div>
+            }
         </div>
     )
 }
