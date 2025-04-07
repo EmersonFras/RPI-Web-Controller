@@ -94,9 +94,14 @@ function Weather() {
                 className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
                 titleContent={<p className="card__content card__content--fade">On/Off Time</p>}
                 content={
-                    <p className="card__content card__content--fade">
-                        Current time set to display: {displayData.start_time && convertTo12HourFormat(displayData.start_time)} to {displayData.stop_time && convertTo12HourFormat(displayData.stop_time)}
-                    </p>
+                    displayData.start_time && displayData.stop_time ?
+                        <p className="card__content card__content--fade">
+                            Current time set to display: {displayData.start_time && convertTo12HourFormat(displayData.start_time)} to {displayData.stop_time && convertTo12HourFormat(displayData.stop_time)}
+                        </p> :
+                        <p className="card__content card__content--fade">
+                            Connection failed. Please check your connection.
+                        </p>
+                    
                 }
                 footerContent={
                     <CardBtn className="card__content card__content--fade" onClick={() => setTimeModalOpen(true)} content="Change Time"/>
@@ -107,7 +112,15 @@ function Weather() {
             <Card 
                 className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
                 titleContent={<p className="card__content card__content--fade">Text Display</p>}
-                content={<p className="card__content card__content--fade">Displaying: {displayData.text}</p>}
+                content={
+                    displayData.text ?
+                        <p className="card__content card__content--fade">
+                            Displaying: {displayData.text}
+                        </p>:
+                        <p className="card__content card__content--fade">
+                            Connection failed. Please check your connection.
+                        </p>
+                }
                 footerContent={
                     <CardBtn className="card__content card__content--fade" onClick={() => setTextModalOpen(true)} content="Change Text"/>
                 }

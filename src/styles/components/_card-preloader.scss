@@ -25,6 +25,8 @@
   .card__content--fade,
   .card__footer--fade {
     opacity: 0;
+    pointer-events: none;
+    user-select: none;
     transition: opacity 0.5s ease-in-out;
   }
   
