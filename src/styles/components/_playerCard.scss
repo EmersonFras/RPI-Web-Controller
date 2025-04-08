@@ -1,0 +1,40 @@
+@use '../abstracts/variables' as *;
+@use 'sass:color';
+
+.playerCard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__container {
+        width: 25%;
+
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__points {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: color.scale($secondary-color, $lightness: 10%);
+        
+        gap: 10px;
+
+        padding: $padding-sm;
+        margin: $padding-sm 15px;
+        
+        border-radius: 15px;
+    }
+
+    &__btn {
+
+        &--points {
+            text-align: center;
+            padding: $padding-sm 15px;
+        }
+    }
+}

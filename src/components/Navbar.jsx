@@ -42,6 +42,7 @@ function Navbar() {
             </div>
             <div className='navbar__section navbar__section--center'>
                 <Link to="/weatherApp" className="navbar__link">Weather App</Link>
+                <Link to="/catan" className="navbar__link">Catan</Link>
                 {isAuthenticated && <Link to="/albumDisplay" className="navbar__link">Album Display</Link>}
             </div>
             <div className='navbar__section navbar__section--right'>
