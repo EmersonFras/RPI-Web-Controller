@@ -46,7 +46,7 @@ function Weather() {
         //     setIsLoading(false);
         // }, 2000);
         // setDisplayData({start_time: "11:00", stop_time: "11:00", text: "t"})
-        // return () => clearTimeout(delay);
+        // return () => clearTimeout(delay)
     }, [])
 
     async function updateTime(start, stop) {
@@ -82,6 +82,11 @@ function Weather() {
         } catch (error) {
             console.error('Error updating text:', error)
         }
+
+        /*
+            Debug code when disconnected from API
+        */
+        // setDisplayData((prevData) => ({...prevData, text: newText}))
     }
 
     function displayWeather() {
@@ -158,10 +163,10 @@ function Weather() {
                 open={timeModalOpen}
                 titleContent={<h2> Change Time </h2>}
                 cancelFn={() => setTimeModalOpen(false)}
-                primaryFn={() => {
+                primaryFn={async () => {
                     const startTime = startTimeRef.current.value
                     const stopTime = stopTimeRef.current.value
-                    updateTime(startTime, stopTime)
+                    await updateTime(startTime, stopTime)
                     setTimeModalOpen(false) // Close the modal after submission
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
@@ -192,9 +197,9 @@ function Weather() {
                 open={textModalOpen}
                 titleContent={<h2> Change Text </h2>}
                 cancelFn={() => setTextModalOpen(false)}
-                primaryFn={() => {
+                primaryFn={async () => {
                     const text = textRef.current.value
-                    updateText(text)
+                    await updateText(text)
                     setTextModalOpen(false)
                 }}
                 secondaryFn={() => setTextModalOpen(false)}
