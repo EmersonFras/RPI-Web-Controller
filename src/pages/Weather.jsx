@@ -28,12 +28,16 @@ function Weather() {
         //Make a request to the server to get the current time set to display
         axios.get('https://rpi-display.duckdns.org:3000/api/weather')
             .then((res) => {
-                setDisplayData({start_time: res.data.start_time, stop_time: res.data.stop_time, text: res.data.text})
+                 setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime, text: res.data.text})
+                
             })
             .catch((error) => console.error('Error fetching display data:', error))
             .finally(() => {
+                
                 setIsLoading(false)
             })
+
+        
 
         /*
             Debug code to simulate loading
@@ -42,7 +46,7 @@ function Weather() {
         // const delay = setTimeout(() => {
         //     setIsLoading(false);
         // }, 2000);
-
+        // setDisplayData({start_time: "11:00", stop_time: "11:00", text: "t"})
         // return () => clearTimeout(delay);
     }, [])
 
@@ -107,7 +111,9 @@ function Weather() {
                     <CardBtn 
                         className={`card__content card__content--fade ${displayData.start_time && displayData.stop_time ? "" : "card__btn--locked"}`}
                         disabled={!(displayData.start_time && displayData.stop_time)}
-                        onClick={() => setTimeModalOpen(true)} 
+                        onClick={() => {
+                            console.log("Time Modal Button Clicked");
+                            setTimeModalOpen(true)}} 
                         content="Change Time"/>
                 }
             />

@@ -33,6 +33,7 @@
   .card--loaded .card__content--fade,
   .card--loaded .card__footer--fade {
     opacity: 1;
+    pointer-events: all;
   }
 
   .card--loaded .card__content--fade.card__btn--locked,
