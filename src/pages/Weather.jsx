@@ -29,7 +29,6 @@ function Weather() {
         axios.get('https://rpi-display.duckdns.org:3000/api/weather')
             .then((res) => {
                  setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime, text: res.data.text})
-                
             })
             .catch((error) => console.error('Error fetching display data:', error))
             .finally(() => {
@@ -52,7 +51,7 @@ function Weather() {
 
     async function updateTime(start, stop) {
         try {
-            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/weather', {
+            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/display/data', {
                 ...displayData,
                 start_time: start,
                 stop_time: stop,
@@ -74,7 +73,7 @@ function Weather() {
 
     async function updateText(newText) {
         try {
-            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/weather', {
+            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/display/data', {
                 ...displayData,
                 text: newText,
             })
@@ -86,8 +85,11 @@ function Weather() {
     }
 
     function displayWeather() {
-        axios.post('https://rpi-display.duckdns.org:3000/api/weather/display', 
-            { withCredentials: true }
+        axios.post('https://rpi-display.duckdns.org:3000/api/display', 
+            { 
+                display: "Weather",
+                withCredentials: true 
+            }
         )
     }
 
