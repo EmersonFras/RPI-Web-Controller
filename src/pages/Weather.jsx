@@ -77,7 +77,10 @@ function Weather() {
                 ...displayData,
                 text: newText,
             })
-            if (res.data.success) setDisplayData((prevData) => ({...prevData, text: newText}))
+            if (res.data.success) {
+                setDisplayData((prevData) => ({...prevData, text: newText}))
+                setTextModalOpen(false)
+            }
             else console.error('Error in post request to update text.')
         } catch (error) {
             console.error('Error updating text:', error)
@@ -167,7 +170,6 @@ function Weather() {
                     const startTime = startTimeRef.current.value
                     const stopTime = stopTimeRef.current.value
                     await updateTime(startTime, stopTime)
-                    setTimeModalOpen(false) // Close the modal after submission
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
@@ -200,7 +202,6 @@ function Weather() {
                 primaryFn={async () => {
                     const text = textRef.current.value
                     await updateText(text)
-                    setTextModalOpen(false)
                 }}
                 secondaryFn={() => setTextModalOpen(false)}
                 content={
