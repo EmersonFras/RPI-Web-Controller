@@ -11,7 +11,7 @@ export default function Callback() {
     useEffect(() => {
         const code = new URLSearchParams(window.location.search).get('code')
 
-        axios.post(
+        axios.get(
             'https://rpi-display.duckdns.org:3000/api/auth/callback',
             { code }, // Send the authorization code to the backend
             { withCredentials: true } // Ensures cookies are included
