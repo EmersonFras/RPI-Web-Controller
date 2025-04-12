@@ -29,7 +29,7 @@ function Navbar() {
     }, [])
 
     function logout() {
-        axios('https://rpi-display.duckdns.org:3000/auth/logout', {
+        axios('https://rpi-display.duckdns.org:3000/auth/api/logout', {
             method: 'POST',
             withCredentials: true
         }).then(() => {checkAuthentication()})
