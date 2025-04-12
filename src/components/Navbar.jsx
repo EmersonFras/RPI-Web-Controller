@@ -45,7 +45,10 @@ function Navbar() {
                 {isAuthenticated && <Link to="/albumDisplay" className="navbar__link">Album Display</Link>}
             </div>
             <div className='navbar__section navbar__section--right'>
-                {isAuthenticated ? <button onClick={logout} className="navbar__button navbar__button--logout">Log Out</button> : <a href="https://rpi-display.duckdns.org:3000/auth" className="navbar__button navbar__button--login">Login</a>}
+                {isAuthenticated ? 
+                    <button onClick={logout} className="navbar__button navbar__button--logout">Log Out</button> : 
+                    <a href="https://rpi-display.duckdns.org:3000/api/auth/login" className="navbar__button navbar__button--login">Login</a>
+                }
             </div>
         </div>
     )

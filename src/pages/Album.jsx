@@ -17,7 +17,7 @@ function Album() {
 
     function albumSearch(input) {
         if (input != lastSearch) {
-            axios.get(`https://rpi-display.duckdns.org:3000/api/album?q=${input}`, {
+            axios.get(`https://rpi-display.duckdns.org:3000/api/album?search=${input}`, {
                 withCredentials: true,
             })
             .then((res) => {setAlbumData(res.data.albums.items)})

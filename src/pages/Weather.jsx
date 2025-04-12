@@ -56,7 +56,9 @@ function Weather() {
                 start_time: start,
                 stop_time: stop,
             })
-            if (res.data.success) setDisplayData((prevData) => ({...prevData, start_time: start, stop_time: stop}))
+            if (res.data.success) {
+                setDisplayData((prevData) => ({...prevData, start_time: start, stop_time: stop}))
+            }
             else console.error('Error in post request to update time.')
         } catch (error) {
             console.error('Error updating time:', error)
@@ -79,7 +81,6 @@ function Weather() {
             })
             if (res.data.success) {
                 setDisplayData((prevData) => ({...prevData, text: newText}))
-                setTextModalOpen(false)
             }
             else console.error('Error in post request to update text.')
         } catch (error) {
@@ -100,6 +101,8 @@ function Weather() {
             }
         )
     }
+
+    const textReceived = !(typeof displayData.text === 'undefined');
 
     return (
         <div className="page weather">
@@ -122,7 +125,6 @@ function Weather() {
                         className={`card__content card__content--fade ${displayData.start_time && displayData.stop_time ? "" : "card__btn--locked"}`}
                         disabled={!(displayData.start_time && displayData.stop_time)}
                         onClick={() => {
-                            console.log("Time Modal Button Clicked");
                             setTimeModalOpen(true)}} 
                         content="Change Time"/>
                 }
@@ -133,18 +135,18 @@ function Weather() {
                 className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
                 titleContent={<p className="card__content card__content--fade">Text Display</p>}
                 content={
-                    displayData.text ?
+                    textReceived ?
                         <p className="card__content card__content--fade">
                             Displaying: {displayData.text}
-                        </p>:
+                        </p> :
                         <p className="card__content card__content--fade">
                             Connection failed. Please check your connection.
                         </p>
                 }
                 footerContent={
                     <CardBtn 
-                        className={`card__content card__content--fade ${displayData.text ? "" : "card__btn--locked"}`} 
-                        disabled={!displayData.text}
+                        className={`card__content card__content--fade ${textReceived ? "" : "card__btn--locked"}`} 
+                        disabled={!textReceived}
                         onClick={() => setTextModalOpen(true)} 
                         content="Change Text"
                     />
@@ -154,8 +156,8 @@ function Weather() {
             <Card 
                 content={
                     <CardBtn 
-                        disabled={!(displayData.text && displayData.start_time && displayData.stop_time)}
-                        className={(displayData.text && displayData.start_time && displayData.stop_time) ? "" : "card__btn--locked"} 
+                        disabled={!(textReceived && displayData.start_time && displayData.stop_time)}
+                        className={(textReceived && displayData.start_time && displayData.stop_time) ? "" : "card__btn--locked"} 
                         onClick={displayWeather} 
                         content="Display" 
                     />
@@ -170,6 +172,7 @@ function Weather() {
                     const startTime = startTimeRef.current.value
                     const stopTime = stopTimeRef.current.value
                     await updateTime(startTime, stopTime)
+                    setTimeModalOpen(false)
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
                 content={
@@ -202,6 +205,7 @@ function Weather() {
                 primaryFn={async () => {
                     const text = textRef.current.value
                     await updateText(text)
+                    setTextModalOpen(false)
                 }}
                 secondaryFn={() => setTextModalOpen(false)}
                 content={
