@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const location = useLocation();
     
     // A function to check the JWT token from the cookie
     const checkAuthentication = async () => {
@@ -21,8 +23,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        checkAuthentication() // Check authentication on initial load
-    }, [])
+        if (!location.pathname.startsWith('/callback')) {
+            checkAuthentication() // Check authentication on initial load
+        }
+    }, [location])
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, checkAuthentication }}>
