@@ -19,8 +19,13 @@ function Album() {
         if (input != lastSearch) {
             axios.get(`https://rpi-display.duckdns.org:3000/api/album?search=${input}`, {
                 withCredentials: true,
-            })
-            .then((res) => {setAlbumData(res.data.albums.items)})
+            })  
+            .then(res => {
+                setAlbumData(Object.entries(res.data.items).map(([name, url]) => ({
+                    name,
+                    image
+                })))
+            }) 
             .catch((err) => console.error(err))     
             
             setCurrentAlbum(0)
@@ -35,9 +40,9 @@ function Album() {
         if (!hasAlbums) return
 
         const nextAlbum = albumData[nextIndex]
-        if (nextAlbum?.images?.[0]?.url) {
+        if (nextAlbum?.image) {
             const img = new Image()
-            img.src = nextAlbum.images[0].url
+            img.src = nextAlbum.image
 
             img.onload = () => {
                 setCurrentAlbum(nextIndex) // Update to the next album
@@ -80,7 +85,7 @@ function Album() {
                 titleContent={<h2 className="album-display__modal-title"> Choose Album </h2>}
                 cancelFn={() => setAlbumModalOpen(false)}
                 primaryFn={() => {
-                    if (hasAlbums) displayAlbum(albumData[currentAlbum].images[0].url)
+                    if (hasAlbums) displayAlbum(albumData[currentAlbum].image)
                     setAlbumModalOpen(false)
                 }}
                 secondaryFn={() => setAlbumModalOpen(false)}
@@ -95,10 +100,10 @@ function Album() {
                                     &lt;
                                 </button>
 
-                                <div key={albumData[currentAlbum].id} className="album-display__item">
-                                    {albumData[currentAlbum]?.images?.[0]?.url ? (
+                                <div className="album-display__item">
+                                    {albumData[currentAlbum]?.image ? (
                                         <img
-                                            src={albumData[currentAlbum].images[0].url}
+                                            src={albumData[currentAlbum].image}
                                             alt={albumData[currentAlbum].name}
                                             className="album-display__image"
                                         />
