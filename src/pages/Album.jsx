@@ -21,7 +21,7 @@ function Album() {
                 withCredentials: true,
             })  
             .then(res => {
-                setAlbumData(Object.entries(res.data.items).map(([name, url]) => ({
+                setAlbumData(Object.entries(res.data.items).map(([name, image]) => ({
                     name,
                     image
                 })))
