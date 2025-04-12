@@ -12,10 +12,10 @@ export default function Callback() {
         const code = new URLSearchParams(window.location.search).get('code')
 
         axios.get(
-            'https://rpi-display.duckdns.org:3000/api/auth/callback',
-            { code }, // Send the authorization code to the backend
-            { withCredentials: true } // Ensures cookies are included
-        )
+            'https://rpi-display.duckdns.org:3000/api/auth/callback', { 
+            params: { code }, // Send the authorization code to the backend
+            withCredentials: true  // Ensures cookies are included
+        })
         .then((response) => {
             if (response.data.success) {
                 checkAuthentication()
