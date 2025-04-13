@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import axiosPrivate from './axiosPrivate'
+import axiosPrivate from '../api/axiosPrivate'
 
 const AuthContext = createContext()
 
