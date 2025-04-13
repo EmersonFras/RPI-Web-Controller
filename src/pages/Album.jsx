@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import axiosPrivate from '../api/axiosPrivate'
+import axios from 'axios'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
