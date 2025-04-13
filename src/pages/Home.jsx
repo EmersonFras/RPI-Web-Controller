@@ -34,7 +34,7 @@ function Home() {
         //Make a request to the server to get the current time set to display
         axios.get('https://rpi-display.duckdns.org:3000/api/weather')
         .then((res) => {
-                setTextData({start_time: res.data.startTime, stop_time: res.data.stopTime})
+                setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime})
         })
         .catch((error) => console.error('Error fetching display data:', error))
         .finally(() => {

@@ -17,6 +17,7 @@ function Weather() {
      */
     const [textData, setTextData] = useState({})
     const [textModalOpen, setTextModalOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     
 
     const textRef = useRef()
