@@ -29,5 +29,5 @@ export default function Callback() {
         })
     }, [navigate])
 
-    return <div>Processing...</div>
+    return <div className='page'></div>
 }
