@@ -79,6 +79,8 @@ function Home() {
 
     // Helper function to convert 24-hour time to 12-hour format
     function convertTo12HourFormat(time) {
+        if (!time || typeof time !== 'string') return "Invalid time";
+
         const [hours, minutes] = time.split(':').map(Number)
         const period = hours >= 12 ? 'PM' : 'AM'
         const adjustedHours = hours % 12 || 12 // Convert 0 to 12 for 12 AM
