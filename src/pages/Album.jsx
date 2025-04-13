@@ -17,7 +17,7 @@ function Album() {
 
     function albumSearch(input) {
         if (input != lastSearch) {
-            axiosPrivate.get(`/api/album?search=${input}`)
+            axiosPrivate.get(`/album?search=${input}`)
                 .then(res => {
                     setAlbumData(Object.entries(res.data.items).map(([name, image]) => ({
                         name,
