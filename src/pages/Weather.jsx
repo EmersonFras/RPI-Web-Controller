@@ -9,26 +9,23 @@ function Weather() {
     /**
      * display data will look something like
      * 
-     * const displayData = {
+     * const textData = {
      *   startTime: "00:00",
      *   endTime: "23:59",
      *   text: "Hello World"
      * }
      */
-    const [displayData, setDisplayData] = useState({})
-    const [timeModalOpen, setTimeModalOpen] = useState(false)
+    const [textData, setTextData] = useState({})
     const [textModalOpen, setTextModalOpen] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    
 
-    const startTimeRef = useRef()
-    const stopTimeRef = useRef()
     const textRef = useRef()
 
     useEffect(() => {
         //Make a request to the server to get the current time set to display
         axios.get('https://rpi-display.duckdns.org:3000/api/weather')
             .then((res) => {
-                 setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime, text: res.data.text})
+                 setTextData({text: res.data.text})
             })
             .catch((error) => console.error('Error fetching display data:', error))
             .finally(() => {
@@ -45,42 +42,17 @@ function Weather() {
         // const delay = setTimeout(() => {
         //     setIsLoading(false);
         // }, 2000);
-        // setDisplayData({start_time: "11:00", stop_time: "11:00", text: "t"})
+        // setTextData({text: "t"})
         // return () => clearTimeout(delay)
     }, [])
-
-    async function updateTime(start, stop) {
-        try {
-            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/display/data', {
-                ...displayData,
-                start_time: start,
-                stop_time: stop,
-            })
-            if (res.data.success) {
-                setDisplayData((prevData) => ({...prevData, start_time: start, stop_time: stop}))
-            }
-            else console.error('Error in post request to update time.')
-        } catch (error) {
-            console.error('Error updating time:', error)
-        }
-    }
-
-    // Helper function to convert 24-hour time to 12-hour format
-    function convertTo12HourFormat(time) {
-        const [hours, minutes] = time.split(':').map(Number)
-        const period = hours >= 12 ? 'PM' : 'AM'
-        const adjustedHours = hours % 12 || 12 // Convert 0 to 12 for 12 AM
-        return `${adjustedHours}:${minutes.toString().padStart(2, '0')} ${period}`
-    }
 
     async function updateText(newText) {
         try {
             const res = await axios.post('https://rpi-display.duckdns.org:3000/api/display/data', {
-                ...displayData,
-                text: newText,
+                text: newText
             })
             if (res.data.success) {
-                setDisplayData((prevData) => ({...prevData, text: newText}))
+                setTextData((prevData) => ({text: newText}))
             }
             else console.error('Error in post request to update text.')
         } catch (error) {
@@ -90,7 +62,7 @@ function Weather() {
         /*
             Debug code when disconnected from API
         */
-        // setDisplayData((prevData) => ({...prevData, text: newText}))
+        // setTextData((prevData) => ({text: newText}))
     }
 
     function displayWeather() {
@@ -102,34 +74,11 @@ function Weather() {
         )
     }
 
-    const textReceived = !(typeof displayData.text === 'undefined');
+    const textReceived = !(typeof textData.text === 'undefined');
 
     return (
         <div className="page weather">
             <h1>Weather Display</h1>
-            <Card
-                className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
-                titleContent={<p className="card__content card__content--fade">On/Off Time</p>}
-                content={
-                    displayData.start_time && displayData.stop_time ?
-                        <p className="card__content card__content--fade">
-                            Current time set to display: {displayData.start_time && convertTo12HourFormat(displayData.start_time)} to {displayData.stop_time && convertTo12HourFormat(displayData.stop_time)}
-                        </p> :
-                        <p className="card__content card__content--fade">
-                            Connection failed. Please check your connection.
-                        </p>
-                    
-                }
-                footerContent={
-                    <CardBtn 
-                        className={`card__content card__content--fade ${displayData.start_time && displayData.stop_time ? "" : "card__btn--locked"}`}
-                        disabled={!(displayData.start_time && displayData.stop_time)}
-                        onClick={() => {
-                            setTimeModalOpen(true)}} 
-                        content="Change Time"/>
-                }
-            />
-
 
             <Card 
                 className={`${isLoading ? 'card--loading' : 'card--loaded'}`}
@@ -137,7 +86,7 @@ function Weather() {
                 content={
                     textReceived ?
                         <p className="card__content card__content--fade">
-                            Displaying: {displayData.text}
+                            Displaying: {textData.text}
                         </p> :
                         <p className="card__content card__content--fade">
                             Connection failed. Please check your connection.
@@ -156,48 +105,15 @@ function Weather() {
             <Card 
                 content={
                     <CardBtn 
-                        disabled={!(textReceived && displayData.start_time && displayData.stop_time)}
-                        className={(textReceived && displayData.start_time && displayData.stop_time) ? "" : "card__btn--locked"} 
+                        disabled={!(textReceived)}
+                        className={(textReceived) ? "" : "card__btn--locked"} 
                         onClick={displayWeather} 
                         content="Display" 
                     />
                 }
             />
 
-            <Modal 
-                open={timeModalOpen}
-                titleContent={<h2> Change Time </h2>}
-                cancelFn={() => setTimeModalOpen(false)}
-                primaryFn={async () => {
-                    const startTime = startTimeRef.current.value
-                    const stopTime = stopTimeRef.current.value
-                    await updateTime(startTime, stopTime)
-                    setTimeModalOpen(false)
-                }}
-                secondaryFn={() => setTimeModalOpen(false)}
-                content={
-                    <div className="weather__container">
-                        <label className="weather__label">
-                            <span className="weather__label-text">Start Time: </span>
-                            <input
-                                className="weather__input weather__input--time"
-                                type="time"
-                                ref={startTimeRef}
-                                defaultValue={displayData.start_time || "00:00"}
-                            />
-                        </label>
-                        <label className="weather__label">
-                            <span className="weather__label-text">Stop Time: </span>
-                            <input
-                                className="weather__input weather__input--time"
-                                type="time"
-                                ref={stopTimeRef}
-                                defaultValue={displayData.stop_time || "23:59"}
-                            />
-                        </label>
-                    </div>
-               }
-           />
+            
             <Modal 
                 open={textModalOpen}
                 titleContent={<h2> Change Text </h2>}
@@ -217,7 +133,7 @@ function Weather() {
                                 type="text"
                                 ref={textRef}
                                 placeholder='Text to display here...'
-                                defaultValue={displayData.text || ""}
+                                defaultValue={textData.text || ""}
                             />
                         </label>
                     </div>
