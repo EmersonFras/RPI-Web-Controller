@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import axios from 'axios'
+import axiosPrivate from '../api/axiosPrivate'
 import Modal from '../components/Modal'
 import Card from '../components/Card'
 import CardBtn from '../components/CardBtn'
@@ -17,16 +17,14 @@ function Album() {
 
     function albumSearch(input) {
         if (input != lastSearch) {
-            axios.get(`https://rpi-display.duckdns.org:3000/api/album?search=${input}`, {
-                withCredentials: true,
-            })  
-            .then(res => {
-                setAlbumData(Object.entries(res.data.items).map(([name, image]) => ({
-                    name,
-                    image
-                })))
-            }) 
-            .catch((err) => console.error(err))     
+            axiosPrivate.get(`/api/album?search${input}`)
+                .then(res => {
+                    setAlbumData(Object.entries(res.data.items).map(([name, image]) => ({
+                        name,
+                        image
+                    })))
+                }) 
+                .catch((err) => console.error(err))
             
             setCurrentAlbum(0)
             setLastSearch(input)
