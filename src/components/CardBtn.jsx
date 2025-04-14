@@ -1,10 +1,10 @@
 
 
 function CardBtn(props) {
-    const { disabled, className, style, onClick, content } = props
+    const { form, type, disabled, className, style, onClick, content } = props
 
     return (
-        <button disabled={disabled} style={style} className={`card__btn ${className}`} onClick={onClick}>{content}</button>
+        <button form={form} type={type} disabled={disabled} style={style} className={`card__btn ${className}`} onClick={onClick}>{content}</button>
     )
 }
 

@@ -1,0 +1,39 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use 'sass:color';
+
+.image-display {
+    &__title {
+
+    }
+
+    &__card {
+        &--title {
+
+        }
+    }
+
+    &__form {
+        
+        &--label {
+            display: flex;
+            justify-content: center;
+            border: 2px dashed $border-color;
+            border-radius: 12px;
+            padding: 3rem;
+            cursor: pointer;
+            background-color: $primary-color;
+            font-size: 1.25rem;
+            color: #555;
+        }
+
+        &--input {
+            display: none;
+        }
+
+        &--error {
+            padding: $padding-sm;
+            color: $error-color;
+        }
+    }
+}
