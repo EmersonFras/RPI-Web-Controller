@@ -10,15 +10,18 @@ function Image() {
 
     const fileInputRef = useRef()
 
+    // Logic for sending file to the backend
     async function uploadFile(formData) {
         const file = formData.get("file")
         const fileType = file.type.split("/")
 
+        // Does not allow for file tpyes that are not images
         if (fileType[0] !== "image") {
             setFileError("Wrong file type. Must be Image/GIF.")
             return;
         }
 
+        // Try to send the request to backend
         try {
             const res = await axios.post('https://rpi-display.duckdns.org:3000/api/image', formData, {
                 headers: {
@@ -27,12 +30,14 @@ function Image() {
                 withCredentials: true
             })
 
+            // Sets the url to access the image in the backend
             if (res.data.success) {
                 const fileUrl = `https://rpi-display.duckdns.org:3000${res.data.url}`
                 console.log(fileUrl)
 
                 setGalleryList(prev => [...prev, fileUrl])
 
+                // Clear form/errors
                 formData = null
                 setFileError("")
                 setFileName("")
@@ -43,16 +48,20 @@ function Image() {
         }
     }
 
+    // Sets the title for the input area
     const setInput = (e) => {
         setFileName(e.target.files[0].name)
         setFileError("")
     }
 
+
+    // Clears the title for the input area
     const clearFile = () => {
         fileInputRef.current.value = null
         setFileName("")
     }
 
+    // Formats the gifs/images uploaded
     const galleryElements = galleryList.map((fileUrl, index) => {
         return (
             <Card 
