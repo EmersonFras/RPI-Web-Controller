@@ -25,10 +25,32 @@
             background-color: $primary-color;
             font-size: 1.25rem;
             color: #555;
+            anchor-name: --input;
         }
 
         &--input {
             display: none;
+            
+        }
+
+        &--clear {
+            position: absolute;
+            margin: 15px;
+
+            position-anchor: --input;
+            right: anchor(right);
+            top: anchor(top);
+
+            background-color: transparent;
+            border-style: none;
+
+            color: rgba(white, .8);
+            font-size: 1.25rem;
+            cursor: pointer;
+
+            &:hover {
+                color: rgba(white, .5);
+            }
         }
 
         &--error {

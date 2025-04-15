@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
+import axios from "axios"
 import Card from "../components/Card"
 import CardBtn from "../components/CardBtn"
 
 function Image() {
     const [fileError, setFileError] = useState("")
     const [fileName, setFileName] = useState("")
+    const [galleryList, setGalleryList] = useState([])
 
-    const uploadFile =(formData) => {
+    const fileInputRef = useRef()
 
+    async function uploadFile(formData) {
         const file = formData.get("file")
         const fileType = file.type.split("/")
 
@@ -16,9 +19,48 @@ function Image() {
             return;
         }
 
-        setFileError("")
-        console.log("Valid file upload", file)
+        try {
+            const res = await axios.post('https://rpi-display.duckdns.org:3000/api/image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true
+            })
+
+            if (res.data.success) {
+                const fileUrl = `https://rpi-display.duckdns.org:3000${res.data.url}`
+                console.log(fileUrl)
+
+                setGalleryList(prev => [...prev, fileUrl])
+
+                formData = null
+                setFileError("")
+                setFileName("")
+            }
+            else console.error('Error in post request to upload image.')
+        } catch (error) {
+            console.error('Error uploading image:', error)
+        }
     }
+
+    const setInput = (e) => {
+        setFileName(e.target.files[0].name)
+        setFileError("")
+    }
+
+    const clearFile = () => {
+        fileInputRef.current.value = null
+        setFileName("")
+    }
+
+    const galleryElements = galleryList.map((fileUrl, index) => {
+        return (
+            <Card 
+                key={index}
+                content={<img src={fileUrl} />}
+            />
+        )
+    })
 
     return (
         <div className="page image-display">
@@ -35,10 +77,12 @@ function Image() {
                                 accept="image/*" 
                                 name="file"
                                 className="image-display__form--input"
-                                onChange={(e) => setFileName(e.target.files[0].name)}
+                                ref={fileInputRef}
+                                onChange={(e) => setInput(e)}
                             />
                             <span>{fileName ? fileName : "Browse Images..."}</span>
-                        </label>
+                            <button className="image-display__form--clear" type="button" onClick={clearFile}>X</button>
+                        </label> 
                         {fileError && <p className="image-display__form--error">{fileError}</p>}
                     </form>
                 }
@@ -46,6 +90,8 @@ function Image() {
                     <CardBtn form="upload-form" type="submit" content="Submit"/>
                 }
             />
+
+            {galleryElements}
         </div>
     )
 }
