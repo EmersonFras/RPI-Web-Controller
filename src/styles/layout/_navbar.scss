@@ -46,6 +46,15 @@
         padding: $padding-sm $padding-md;
 
         border-radius: 15px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--image {
+            width: 25px;
+            height: 25px;
+        }
     }
 
     &__button {
@@ -60,6 +69,10 @@
             background-color: transparent;
             color: $font-color;
 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             &:hover {
                 background-color: color.scale($nav-color, $lightness: -10%);
             }
@@ -70,7 +83,11 @@
             color: $font-color;
             text-decoration: none;
             display: inline-block;
+
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             &:hover {
                 background-color: color.scale($nav-color, $lightness: -10%);

@@ -53,7 +53,7 @@ function Weather() {
                 text: newText
             })
             if (res.data.success) {
-                setTextData((prevData) => ({text: newText}))
+                setTextData(() => ({text: newText}))
             }
             else console.error('Error in post request to update text.')
         } catch (error) {
