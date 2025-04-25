@@ -15,10 +15,15 @@ function Image() {
     }, [])
 
     async function updateGallery() {
-        await axios.get('https://rpi-display.duckdns.org:3000/api/image')
-        .then((res) => {
-            setGalleryList(res.data.images)
-        })
+        try {
+            // Get the list of images from the backend
+            await axios.get('https://rpi-display.duckdns.org:3000/api/image')
+            .then((res) => {
+                setGalleryList(res.data.images)
+            })
+        } catch (error) {
+            console.error('Error fetching images:', error)
+        }
     }
 
     // Logic for sending file to the backend
@@ -59,6 +64,21 @@ function Image() {
         }
     }
 
+    async function deleteFile(fileId) {
+        try {
+            await axios.delete(`https://rpi-display.duckdns.org:3000/api/image/${fileId}`, {
+                withCredentials: true
+            })
+            .then((res) => {
+                if (res.data.success) {
+                    updateGallery()
+                }
+            })
+        } catch (error) {   
+            console.error('Error deleting image:', error)
+        }
+    }
+
     // Sets the title for the input area
     const setInput = (e) => {
         setFileName(e.target.files[0].name)
@@ -78,7 +98,12 @@ function Image() {
         return (
             <Card 
                 key={index}
-                content={<img src={file.url} />}
+                content={
+                    <div>
+                        <img src={file.url} />
+                        <button className="image-display__gallery--delete" onClick={() => deleteFile(file.Id)}>Delete</button>
+                    </div>
+                }
             />
         )
     })
