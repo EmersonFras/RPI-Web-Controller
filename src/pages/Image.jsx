@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import Card from "../components/Card"
 import CardBtn from "../components/CardBtn"
@@ -9,6 +9,17 @@ function Image() {
     const [galleryList, setGalleryList] = useState([])
 
     const fileInputRef = useRef()
+
+    useEffect(() => {
+        updateGallery();
+    }, [])
+
+    async function updateGallery() {
+        await axios.get('https://rpi-display.duckdns.org:3000/api/image')
+        .then((res) => {
+            setGalleryList(res.data.images)
+        })
+    }
 
     // Logic for sending file to the backend
     async function uploadFile(formData) {
@@ -32,10 +43,10 @@ function Image() {
 
             // Sets the url to access the image in the backend
             if (res.data.success) {
-                const fileUrl = `https://rpi-display.duckdns.org:3000${res.data.url}`
+                const fileUrl = `${res.data.url}`
                 console.log(fileUrl)
 
-                setGalleryList(prev => [...prev, fileUrl])
+                updateGallery()
 
                 // Clear form/errors
                 formData = null
@@ -62,11 +73,12 @@ function Image() {
     }
 
     // Formats the gifs/images uploaded
-    const galleryElements = galleryList.map((fileUrl, index) => {
+    const galleryElements = galleryList.map((file, index) => {
+        console.log(file)
         return (
             <Card 
                 key={index}
-                content={<img src={fileUrl} />}
+                content={<img src={file.url} />}
             />
         )
     })
