@@ -57,5 +57,15 @@
             padding: $padding-sm;
             color: $error-color;
         }
+
+    }
+
+    &__gallery {
+        display: flex;
+
+        &--image {
+            max-width: 640px;
+            max-height: 640px;
+        }
     }
 }

@@ -49,7 +49,6 @@ function Image() {
             // Sets the url to access the image in the backend
             if (res.data.success) {
                 const fileUrl = `${res.data.url}`
-                console.log(fileUrl)
 
                 updateGallery()
 
@@ -94,15 +93,14 @@ function Image() {
 
     // Formats the gifs/images uploaded
     const galleryElements = galleryList.map((file, index) => {
-        console.log(file)
         return (
             <Card 
                 key={index}
                 content={
-                    <div>
-                        <img src={file.url} />
-                        <button className="image-display__gallery--delete" onClick={() => deleteFile(file.Id)}>Delete</button>
-                    </div>
+                    <>
+                        <img className="image-display__gallery--image" src={file.url} />
+                        <button className="image-display__gallery--delete" onClick={() => deleteFile(file.id)}>Delete</button>
+                    </>
                 }
             />
         )
@@ -136,8 +134,9 @@ function Image() {
                     <CardBtn form="upload-form" type="submit" content="Submit"/>
                 }
             />
-
-            {galleryElements}
+            <div className="image-display__gallery">
+                {galleryElements}
+            </div>
         </div>
     )
 }
