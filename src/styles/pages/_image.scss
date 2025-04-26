@@ -26,6 +26,8 @@
             font-size: 1.25rem;
             color: #555;
             anchor-name: --input;
+
+            position: relative;
         }
 
         &--input {
@@ -46,8 +48,9 @@
 
             // Fallback to absolute positioning for unsupported browsers
             @supports not (position-anchor: var(--input)) {
-                right: 1rem;
-                top: 1rem;
+                right: 0;
+                top: 0;
+            }
 
             background-color: transparent;
             border-style: none;
@@ -88,6 +91,7 @@
             width: 360px;
             margin: 0.5rem;
             flex-shrink: 0;
+            position: relative;
         }
 
         &--image {
@@ -111,8 +115,8 @@
             }
 
             @supports not (position-anchor: var(--image-anchor)) {
-                right: 1rem;
-                top: 1rem;
+                right: 0;
+                top: 0;
             }
         }
     }
