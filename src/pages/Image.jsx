@@ -2,11 +2,21 @@ import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import Card from "../components/Card"
 import CardBtn from "../components/CardBtn"
+import Modal from "../components/Modal"
+import Cropper from "react-easy-crop"
+import getCroppedImg from "../utils/cropImage"
 
 function Image() {
     const [fileError, setFileError] = useState("")
     const [fileName, setFileName] = useState("")
     const [galleryList, setGalleryList] = useState([])
+
+    // For the cropper
+    const [imageSrc, setImageSrc] = useState(null)
+    const [crop, setCrop] = useState({ x: 0, y: 0 })
+    const [zoom, setZoom] = useState(1)
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
+    const [showCropper, setShowCropper] = useState(false)
 
     const fileInputRef = useRef()
 
@@ -53,7 +63,7 @@ function Image() {
                 updateGallery()
 
                 // Clear form/errors
-                formData = null
+                fileInputRef.current.value = null
                 setFileError("")
                 setFileName("")
             }
@@ -61,6 +71,15 @@ function Image() {
         } catch (error) {
             console.error('Error uploading image:', error)
         }
+    }
+
+    const handleCropSubmit = async () => {
+        const croppedFile = await getCroppedImg(imageSrc, croppedAreaPixels)
+        const formData = new FormData()
+        formData.append("file", croppedFile)
+        console.log(formData)
+        await uploadFile(formData)
+        setShowCropper(false)
     }
 
     async function deleteFile(fileId) {
@@ -80,8 +99,17 @@ function Image() {
 
     // Sets the title for the input area
     const setInput = (e) => {
-        setFileName(e.target.files[0].name)
-        setFileError("")
+        const file = e.target.files[0]
+        if (file) {
+            const reader = new FileReader()
+            reader.onload = () => {
+                setImageSrc(reader.result)
+                setShowCropper(true)
+            }
+            reader.readAsDataURL(file)
+            setFileName(file.name)
+            setFileError("")
+        }
     }
 
 
@@ -93,13 +121,30 @@ function Image() {
 
     // Formats the gifs/images uploaded
     const galleryElements = galleryList.map((file, index) => {
+        const anchorId = `--image-${index}`
+
         return (
             <Card 
                 key={index}
+                className="image-display__gallery--card"
                 content={
                     <>
-                        <img className="image-display__gallery--image" src={file.url} />
-                        <button className="image-display__gallery--delete" onClick={() => deleteFile(file.id)}>Delete</button>
+                        <img 
+                            className="image-display__gallery--image" 
+                            src={file.url} 
+                            style={{ anchorName: anchorId }}
+                        />
+                        <button 
+                            className="image-display__gallery--delete" 
+                            onClick={() => deleteFile(file.id)}
+                            style={{
+                                positionAnchor: anchorId,
+                                right: "anchor(right)",
+                                top: "anchor(top)"
+                            }}
+                        >
+                            X
+                        </button>
                     </>
                 }
             />
@@ -113,7 +158,7 @@ function Image() {
             <Card 
                 titleContent={<p className="image-display__card--title">Browse Below</p>}
                 content={
-                    <form id="upload-form" className="image-display__form" action={uploadFile}>
+                    <form id="upload-form" className="image-display__form" action={() => setShowCropper(true)}>
                         <label className="image-display__form--label">
                             <input 
                                 aria-label="Upload Image/GIF" 
@@ -131,9 +176,30 @@ function Image() {
                     </form>
                 }
                 footerContent={
-                    <CardBtn form="upload-form" type="submit" content="Submit"/>
+                    <CardBtn form="upload-form" type="submit" content="Crop"/>
                 }
             />
+
+            <Modal 
+                open={showCropper}
+                content={
+                    <div className="image-display__modal--cropper">
+                    <Cropper
+                        image={imageSrc}
+                        crop={crop}
+                        zoom={zoom}
+                        aspect={1} // Square
+                        onCropChange={setCrop}
+                        onZoomChange={setZoom}
+                        onCropComplete={(_, croppedPixels) => setCroppedAreaPixels(croppedPixels)}
+                    />
+                </div>
+                }
+                primaryFn={handleCropSubmit}
+                secondaryFn={() => setShowCropper(false)}
+                cancelFn={() => setShowCropper(false)}
+            />
+
             <div className="image-display__gallery">
                 {galleryElements}
             </div>
