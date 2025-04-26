@@ -17,6 +17,7 @@ function App() {
         <Route path='/weatherApp' element={<Weather />} />
         <Route path='/imageApp' element={<Image />} />
         <Route path='/albumDisplay' element={<Album />} />
+        <Route path='*' element={<Home />} />
       </Routes>
     </>
   )
