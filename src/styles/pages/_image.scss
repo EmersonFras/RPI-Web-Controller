@@ -25,9 +25,14 @@
             background-color: $primary-color;
             font-size: 1.25rem;
             color: #555;
-            anchor-name: --input;
 
-            position: relative;
+            @supports (anchor-name: --input) {
+                anchor-name: --input;
+            }
+            
+            @supports not (anchor-name: --input) {
+                position: relative;
+            }
         }
 
         &--input {
@@ -38,6 +43,17 @@
         &--clear {
             position: absolute;
             margin: 15px;
+
+            background-color: transparent;
+            border-style: none;
+
+            color: rgba(white, .8);
+            font-size: 1.25rem;
+            cursor: pointer;
+
+            &:hover {
+                color: rgba(white, .5);
+            }
 
             // Try anchor positioning if supported
             @supports (position-anchor: var(--input)) {
@@ -50,17 +66,6 @@
             @supports not (position-anchor: var(--input)) {
                 right: 0;
                 top: 0;
-            }
-
-            background-color: transparent;
-            border-style: none;
-
-            color: rgba(white, .8);
-            font-size: 1.25rem;
-            cursor: pointer;
-
-            &:hover {
-                color: rgba(white, .5);
             }
         }
 
@@ -91,7 +96,10 @@
             width: 360px;
             margin: 0.5rem;
             flex-shrink: 0;
-            position: relative;
+
+            @supports not (position-anchor: var(--image-anchor)) {
+                position: relative;
+            }
         }
 
         &--image {
