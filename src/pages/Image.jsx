@@ -36,6 +36,22 @@ function Image() {
         }
     }
 
+    async function displayImage(id) {
+        try {
+            const res = await axios.post(
+                'https://rpi-display.duckdns.org:3000/api/image/set',
+                { id: id },
+                { withCredentials: true }
+            )
+    
+            if (!res.data.success) {
+                console.error("Display failed:", res.data.message)
+            }
+        } catch (error) {
+            console.error('Error sending display request:', error)
+        }
+    }
+
     // Logic for sending file to the backend
     async function uploadFile(formData) {
         const file = formData.get("file")
@@ -124,30 +140,40 @@ function Image() {
         const anchorId = `--image-${index}`
 
         return (
-            <Card 
-                key={index}
-                className="image-display__gallery--card"
-                content={
-                    <>
-                        <img 
-                            className="image-display__gallery--image" 
-                            src={file.url} 
-                            style={{ anchorName: anchorId }}
-                        />
-                        <button 
-                            className="image-display__gallery--delete" 
-                            onClick={() => deleteFile(file.id)}
-                            style={{
-                                positionAnchor: anchorId,
-                                right: "anchor(right)",
-                                top: "anchor(top)"
-                            }}
-                        >
-                            X
-                        </button>
-                    </>
-                }
-            />
+            <div key={index} onClick={() => displayImage(file.id)}>
+                <Card 
+                    className="image-display__gallery--card"
+                    content={
+                        <>
+                            <img 
+                                className="image-display__gallery--image" 
+                                src={file.url} 
+                                style={{ anchorName: anchorId }}
+                            />
+                            <button 
+                                className="image-display__gallery--delete" 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteFile(file.id)
+                                }}
+                                style={{
+                                    positionAnchor: anchorId,
+                                    right: "anchor(right)",
+                                    top: "anchor(top)"
+                                }}
+                            >
+                                X
+                            </button>
+                            {/* <button
+                                className="image-display__gallery--display"
+                                onClick={() => displayImage(file.id)}
+                            >
+                                Display
+                            </button> */}
+                        </>
+                    }
+                />
+            </div>
         )
     })
 
