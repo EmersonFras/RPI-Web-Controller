@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { TiWeatherPartlySunny } from "react-icons/ti"
 import { GoHome } from "react-icons/go"
 import { BiAlbum } from "react-icons/bi"
-import { IoLogOutOutline, IoLogInOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoLogInOutline, IoImageOutline, IoCloudOutline } from "react-icons/io5"
 
 
 function Navbar() {
@@ -56,10 +55,15 @@ function Navbar() {
                 </Link>
             </div>
             <div className='navbar__section navbar__section--center'>
+
                 <Link to="/weatherApp" className="navbar__link">
-                    {isMobile ? <TiWeatherPartlySunny className="navbar__link--image" /> : "Weather Display"}
+                    {isMobile ? <IoCloudOutline className="navbar__link--image" /> : "Weather Display"}
                 </Link>
-                <Link to="/imageApp" className="navbar__link">Image App</Link>
+
+                <Link to="/imageApp" className="navbar__link">
+                    {isMobile ? <IoImageOutline className="navbar__link--image"/> : "Image App" }
+                </Link>
+
                 {isAuthenticated && 
                     <Link to="/albumDisplay" className="navbar__link">
                         {isMobile ? <BiAlbum className="navbar__link--image"/> : "Album Display"}

@@ -71,10 +71,8 @@ function Image() {
                 },
                 withCredentials: true
             })
-
-            // Sets the url to access the image in the backend
+            
             if (res.data.success) {
-                const fileUrl = `${res.data.url}`
 
                 updateGallery()
 
