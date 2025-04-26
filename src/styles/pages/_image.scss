@@ -37,9 +37,17 @@
             position: absolute;
             margin: 15px;
 
-            position-anchor: --input;
-            right: anchor(right);
-            top: anchor(top);
+            // Try anchor positioning if supported
+            @supports (position-anchor: var(--input)) {
+                position-anchor: --input;
+                right: anchor(right);
+                top: anchor(top);
+            }
+
+            // Fallback to absolute positioning for unsupported browsers
+            @supports not (position-anchor: var(--input)) {
+                right: 1rem;
+                top: 1rem;
 
             background-color: transparent;
             border-style: none;
@@ -101,6 +109,11 @@
             &:hover {
                 color: rgba(white, .5);
             }
+
+            @supports not (position-anchor: var(--image-anchor)) {
+                right: 1rem;
+                top: 1rem;
+            }
         }
     }
 }
@@ -114,7 +127,7 @@
             position: relative;
             width: 90%;
             height: 300px; 
-            max-width: "100%";
+            max-width: 100%;
         }
     }
 
