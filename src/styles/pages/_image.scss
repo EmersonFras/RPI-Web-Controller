@@ -115,8 +115,8 @@
             }
 
             @supports not (position-anchor: var(--image-anchor)) {
-                right: 0;
-                top: 0;
+                right: 0.5rem;
+                top: 0.5rem;
             }
         }
     }
