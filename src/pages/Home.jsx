@@ -9,7 +9,11 @@ import Modal from '../components/Modal'
 function Home() {
     const [currentScript, setCurrentScript] = useState("")
     const [timeModalOpen, setTimeModalOpen] = useState(false)
-    const [displayData, setDisplayData] = useState({})
+    const [displayData, setDisplayData] = useState({        
+        start_time: "",
+        stop_time: "",
+        brightness: 50
+    })
     const [isLoading, setIsLoading] = useState(true)
 
     const startTimeRef = useRef()
@@ -32,9 +36,9 @@ function Home() {
         fetchScriptName();
 
         //Make a request to the server to get the current time set to display
-        axios.get('https://rpi-display.duckdns.org:3000/api/weather')
+        axios.get('https://rpi-display.duckdns.org:3000/api/display')
         .then((res) => {
-                setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime})
+            setDisplayData({start_time: res.data.startTime, stop_time: res.data.stopTime, brightness: res.data.brightness})
         })
         .catch((error) => console.error('Error fetching display data:', error))
         .finally(() => {
@@ -62,14 +66,15 @@ function Home() {
         return scriptName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
     };
 
-    async function updateTime(start, stop) {
+    async function updateData(brightness, start, stop) {
         try {
             const res = await axios.post('https://rpi-display.duckdns.org:3000/api/display/data', {
                 start_time: start,
                 stop_time: stop,
+                brightness: brightness
             })
             if (res.data.success) {
-                setDisplayData((prevData) => ({start_time: start, stop_time: stop}))
+                setDisplayData((prevData) => ({start_time: start, stop_time: stop, brightness: brightness }))
             }
             else console.error('Error in post request to update time.')
         } catch (error) {
@@ -117,7 +122,33 @@ function Home() {
                         onClick={() => {
                             setTimeModalOpen(true)
                         }} 
-                        content="Change Time"/>
+                        content="Change Time"
+                    />
+                }
+            />
+            
+            <Card 
+                content={
+                    <form id="brightness-form" action={() => updateData(displayData.brightness, displayData.start_time, displayData.stop_time)}>
+                        <label>
+                            <span>Brightness: </span>
+                            <input 
+                                type="range" 
+                                min="1" 
+                                max="100" 
+                                value={displayData.brightness} 
+                                onChange={(e) => setDisplayData((prevData) => ({ ...prevData, brightness: e.target.value }))}
+                            />
+                            <span>{displayData.brightness}</span>
+                        </label>
+                    </form>
+                }
+                footerContent={
+                    <CardBtn 
+                        form="brightness-form" 
+                        type="submit"
+                        content="Set Brightness"
+                    />
                 }
             />
 
@@ -128,7 +159,7 @@ function Home() {
                 primaryFn={async () => {
                     const startTime = startTimeRef.current.value
                     const stopTime = stopTimeRef.current.value
-                    await updateTime(startTime, stopTime)
+                    await updateTime(displayData.brightness, startTime, stopTime)
                     setTimeModalOpen(false)
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
