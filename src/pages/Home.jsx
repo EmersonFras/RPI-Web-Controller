@@ -159,7 +159,7 @@ function Home() {
                 primaryFn={async () => {
                     const startTime = startTimeRef.current.value
                     const stopTime = stopTimeRef.current.value
-                    await updateTime(displayData.brightness, startTime, stopTime)
+                    await updateData(displayData.brightness, startTime, stopTime)
                     setTimeModalOpen(false)
                 }}
                 secondaryFn={() => setTimeModalOpen(false)}
